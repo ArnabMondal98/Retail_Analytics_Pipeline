@@ -1,0 +1,2766 @@
+{
+  "ingestion": {
+    "summary": {
+      "file_name": "online_retail_monthly.xlsx",
+      "total_records": 525461,
+      "total_columns": 12,
+      "date_loaded": "2026-02-08T19:08:49.855256",
+      "validation_status": true
+    },
+    "validation": {
+      "total_records": 525461,
+      "total_columns": 12,
+      "columns_found": [
+        "transaction_id",
+        "transaction_item_code",
+        "transaction_item_description",
+        "product_type",
+        "frequency_of_payment",
+        "quantity",
+        "transaction_date",
+        "price",
+        "customer_id",
+        "country",
+        "transaction_amount",
+        "first_transaction_month"
+      ],
+      "missing_required_columns": [],
+      "column_types": {
+        "transaction_id": "object",
+        "transaction_item_code": "object",
+        "transaction_item_description": "object",
+        "product_type": "str",
+        "frequency_of_payment": "str",
+        "quantity": "int64",
+        "transaction_date": "datetime64[us]",
+        "price": "float64",
+        "customer_id": "float64",
+        "country": "str",
+        "transaction_amount": "float64",
+        "first_transaction_month": "str"
+      },
+      "is_valid": true
+    },
+    "quality": {
+      "null_counts": {
+        "transaction_id": 0,
+        "transaction_item_code": 0,
+        "transaction_item_description": 2928,
+        "product_type": 0,
+        "frequency_of_payment": 0,
+        "quantity": 0,
+        "transaction_date": 0,
+        "price": 0,
+        "customer_id": 107927,
+        "country": 0,
+        "transaction_amount": 0,
+        "first_transaction_month": 107927
+      },
+      "null_percentages": {
+        "transaction_id": 0.0,
+        "transaction_item_code": 0.0,
+        "transaction_item_description": 0.56,
+        "product_type": 0.0,
+        "frequency_of_payment": 0.0,
+        "quantity": 0.0,
+        "transaction_date": 0.0,
+        "price": 0.0,
+        "customer_id": 20.54,
+        "country": 0.0,
+        "transaction_amount": 0.0,
+        "first_transaction_month": 20.54
+      },
+      "duplicate_rows": 6865,
+      "unique_counts": {
+        "transaction_id": 28816,
+        "transaction_item_code": 4632,
+        "transaction_item_description": 4681,
+        "product_type": 1,
+        "frequency_of_payment": 1,
+        "country": 40,
+        "first_transaction_month": 13
+      },
+      "numeric_stats": {
+        "quantity": {
+          "min": -9600.0,
+          "max": 19152.0,
+          "mean": 10.337667305470815,
+          "median": 3.0,
+          "std": 107.42411026879778
+        },
+        "price": {
+          "min": -53594.36,
+          "max": 25111.09,
+          "mean": 4.688834478676819,
+          "median": 2.1,
+          "std": 146.1269139529265
+        },
+        "customer_id": {
+          "min": 12346.0,
+          "max": 18287.0,
+          "mean": 15360.645477973052,
+          "median": 15311.0,
+          "std": 1680.8113157457142
+        },
+        "transaction_amount": {
+          "min": -53594.36,
+          "max": 25111.09,
+          "mean": 18.15450553704271,
+          "median": 9.95,
+          "std": 160.33308342883544
+        }
+      },
+      "date_range": {
+        "transaction_date": {
+          "min": "2009-12-01T07:45:00",
+          "max": "2010-12-09T20:01:00"
+        }
+      },
+      "memory_usage_mb": 239.2
+    }
+  },
+  "cleaning": {
+    "original_shape": [
+      525461,
+      12
+    ],
+    "final_shape": [
+      369097,
+      12
+    ],
+    "records_removed": 156364,
+    "removal_percentage": 29.76,
+    "operations": [
+      {
+        "operation": "remove_duplicates",
+        "details": {
+          "removed": 6865
+        },
+        "records_after": 518596
+      },
+      {
+        "operation": "handle_missing_values",
+        "details": {
+          "strategy": "drop_customers",
+          "removed": 107833
+        },
+        "records_after": 410763
+      },
+      {
+        "operation": "remove_cancelled_transactions",
+        "details": {
+          "removed": 9816
+        },
+        "records_after": 400947
+      },
+      {
+        "operation": "standardize_data_types",
+        "details": {
+          "customer_id": "int",
+          "transaction_date": "datetime",
+          "quantity": "int",
+          "price": "float",
+          "transaction_amount": "float"
+        },
+        "records_after": 400947
+      },
+      {
+        "operation": "clean_text_columns",
+        "details": {
+          "columns": [
+            "transaction_item_description",
+            "product_type",
+            "country"
+          ]
+        },
+        "records_after": 400947
+      },
+      {
+        "operation": "remove_outliers",
+        "details": {
+          "column": "quantity",
+          "method": "iqr",
+          "threshold": 3,
+          "removed": 18787
+        },
+        "records_after": 382160
+      },
+      {
+        "operation": "remove_outliers",
+        "details": {
+          "column": "transaction_amount",
+          "method": "iqr",
+          "threshold": 3,
+          "removed": 13063
+        },
+        "records_after": 369097
+      }
+    ]
+  },
+  "feature_engineering": {
+    "report": {
+      "features_created": [
+        "year",
+        "month",
+        "quarter",
+        "day_of_week",
+        "day_of_month",
+        "week_of_year",
+        "is_weekend",
+        "year_month",
+        "calculated_amount",
+        "transaction_size",
+        "quantity_tier",
+        "customer_aggregations",
+        "product_aggregations",
+        "country_aggregations"
+      ],
+      "total_features": 14,
+      "final_columns": [
+        "transaction_id",
+        "transaction_item_code",
+        "transaction_item_description",
+        "product_type",
+        "frequency_of_payment",
+        "quantity",
+        "transaction_date",
+        "price",
+        "customer_id",
+        "country",
+        "transaction_amount",
+        "first_transaction_month",
+        "year",
+        "month",
+        "quarter",
+        "day_of_week",
+        "day_of_month",
+        "week_of_year",
+        "is_weekend",
+        "year_month",
+        "calculated_amount",
+        "transaction_size",
+        "quantity_tier"
+      ],
+      "final_shape": [
+        369097,
+        23
+      ]
+    },
+    "customer_features": 4146,
+    "product_features": 3970,
+    "country_features": 37
+  },
+  "eda": {
+    "basic_statistics": {
+      "quantity": {
+        "count": 369097,
+        "mean": 6.95,
+        "std": 7.04,
+        "min": 1.0,
+        "q25": 2.0,
+        "median": 4.0,
+        "q75": 12.0,
+        "max": 42.0
+      },
+      "price": {
+        "count": 369097,
+        "mean": 2.96,
+        "std": 3.1,
+        "min": 0.0,
+        "q25": 1.25,
+        "median": 1.95,
+        "q75": 3.75,
+        "max": 55.0
+      },
+      "customer_id": {
+        "count": 369097,
+        "mean": 15383.22,
+        "std": 1678.27,
+        "min": 12346.0,
+        "q25": 14020.0,
+        "median": 15358.0,
+        "q75": 16838.0,
+        "max": 18287.0
+      },
+      "transaction_amount": {
+        "count": 369097,
+        "mean": 12.63,
+        "std": 10.17,
+        "min": 0.0,
+        "q25": 4.35,
+        "median": 10.4,
+        "q75": 17.4,
+        "max": 55.8
+      },
+      "week_of_year": {
+        "count": 369097,
+        "mean": 30.05,
+        "std": 15.03,
+        "min": 1.0,
+        "q25": 17.0,
+        "median": 33.0,
+        "q75": 44.0,
+        "max": 52.0
+      },
+      "is_weekend": {
+        "count": 369097,
+        "mean": 0.19,
+        "std": 0.39,
+        "min": 0.0,
+        "q25": 0.0,
+        "median": 0.0,
+        "q75": 0.0,
+        "max": 1.0
+      },
+      "calculated_amount": {
+        "count": 369097,
+        "mean": 12.63,
+        "std": 10.17,
+        "min": 0.0,
+        "q25": 4.35,
+        "median": 10.4,
+        "q75": 17.4,
+        "max": 55.8
+      }
+    },
+    "distribution_analysis": {
+      "transaction_amount": {
+        "0-10": 170068,
+        "10-25": 157346,
+        "25-50": 38686,
+        "50-100": 2968,
+        "100-250": 0,
+        "250-500": 0,
+        "500-1000": 0,
+        "1000+": 0
+      },
+      "quantity": {
+        "2-5": 126239,
+        "11-25": 91020,
+        "1": 75354,
+        "6-10": 71910,
+        "26-50": 4574,
+        "51-100": 0,
+        "100+": 0
+      }
+    },
+    "temporal_analysis": {
+      "monthly": [
+        {
+          "period": "2009-12",
+          "transactions": 1364,
+          "revenue": 353831.78,
+          "customers": 904
+        },
+        {
+          "period": "2010-01",
+          "transactions": 885,
+          "revenue": 248421.132,
+          "customers": 671
+        },
+        {
+          "period": "2010-02",
+          "transactions": 993,
+          "revenue": 263228.426,
+          "customers": 735
+        },
+        {
+          "period": "2010-03",
+          "transactions": 1361,
+          "revenue": 365576.161,
+          "customers": 990
+        },
+        {
+          "period": "2010-04",
+          "transactions": 1178,
+          "revenue": 325442.702,
+          "customers": 893
+        },
+        {
+          "period": "2010-05",
+          "transactions": 1237,
+          "revenue": 332453.07,
+          "customers": 915
+        },
+        {
+          "period": "2010-06",
+          "transactions": 1352,
+          "revenue": 353663.74,
+          "customers": 982
+        },
+        {
+          "period": "2010-07",
+          "transactions": 1242,
+          "revenue": 315357.15,
+          "customers": 872
+        },
+        {
+          "period": "2010-08",
+          "transactions": 1159,
+          "revenue": 305591.71,
+          "customers": 852
+        },
+        {
+          "period": "2010-09",
+          "transactions": 1501,
+          "revenue": 423297.251,
+          "customers": 1068
+        },
+        {
+          "period": "2010-10",
+          "transactions": 1940,
+          "revenue": 571801.3,
+          "customers": 1421
+        },
+        {
+          "period": "2010-11",
+          "transactions": 2353,
+          "revenue": 644393.522,
+          "customers": 1533
+        },
+        {
+          "period": "2010-12",
+          "transactions": 698,
+          "revenue": 159174.41,
+          "customers": 528
+        }
+      ],
+      "day_of_week": [
+        {
+          "day_of_week": 0,
+          "transaction_id": 57661,
+          "transaction_amount": 739828.485,
+          "day_name": "Monday"
+        },
+        {
+          "day_of_week": 1,
+          "transaction_id": 63074,
+          "transaction_amount": 845781.781,
+          "day_name": "Tuesday"
+        },
+        {
+          "day_of_week": 2,
+          "transaction_id": 60338,
+          "transaction_amount": 795557.313,
+          "day_name": "Wednesday"
+        },
+        {
+          "day_of_week": 3,
+          "transaction_id": 73997,
+          "transaction_amount": 964866.432,
+          "day_name": "Thursday"
+        },
+        {
+          "day_of_week": 4,
+          "transaction_id": 45462,
+          "transaction_amount": 618400.942,
+          "day_name": "Friday"
+        },
+        {
+          "day_of_week": 5,
+          "transaction_id": 361,
+          "transaction_amount": 7320.89,
+          "day_name": "Saturday"
+        },
+        {
+          "day_of_week": 6,
+          "transaction_id": 68204,
+          "transaction_amount": 690476.511,
+          "day_name": "Sunday"
+        }
+      ],
+      "hourly": [
+        {
+          "hour": 7,
+          "transactions": 456,
+          "revenue": 9815.19
+        },
+        {
+          "hour": 8,
+          "transactions": 5550,
+          "revenue": 107339.6
+        },
+        {
+          "hour": 9,
+          "transactions": 17176,
+          "revenue": 309699.73
+        },
+        {
+          "hour": 10,
+          "transactions": 31229,
+          "revenue": 508795.542
+        },
+        {
+          "hour": 11,
+          "transactions": 46153,
+          "revenue": 558239.223
+        },
+        {
+          "hour": 12,
+          "transactions": 66201,
+          "revenue": 769880.901
+        },
+        {
+          "hour": 13,
+          "transactions": 61892,
+          "revenue": 723985.304
+        },
+        {
+          "hour": 14,
+          "transactions": 51779,
+          "revenue": 631257.25
+        },
+        {
+          "hour": 15,
+          "transactions": 39973,
+          "revenue": 495521.37200000003
+        },
+        {
+          "hour": 16,
+          "transactions": 26159,
+          "revenue": 296764.061
+        },
+        {
+          "hour": 17,
+          "transactions": 12780,
+          "revenue": 145735.521
+        },
+        {
+          "hour": 18,
+          "transactions": 4105,
+          "revenue": 56117.01
+        },
+        {
+          "hour": 19,
+          "transactions": 4552,
+          "revenue": 42228.03
+        },
+        {
+          "hour": 20,
+          "transactions": 1092,
+          "revenue": 6853.62
+        }
+      ]
+    },
+    "categorical_analysis": {
+      "country": [
+        {
+          "country": "United Kingdom",
+          "transactions": 15891,
+          "revenue": 4087734.223,
+          "customers": 3822
+        },
+        {
+          "country": "Eire",
+          "transactions": 263,
+          "revenue": 143494.67,
+          "customers": 3
+        },
+        {
+          "country": "Germany",
+          "transactions": 323,
+          "revenue": 130418.631,
+          "customers": 67
+        },
+        {
+          "country": "France",
+          "transactions": 220,
+          "revenue": 88736.78,
+          "customers": 45
+        },
+        {
+          "country": "Netherlands",
+          "transactions": 95,
+          "revenue": 19118.87,
+          "customers": 22
+        },
+        {
+          "country": "Switzerland",
+          "transactions": 36,
+          "revenue": 18825.11,
+          "customers": 14
+        },
+        {
+          "country": "Spain",
+          "transactions": 52,
+          "revenue": 18566.87,
+          "customers": 21
+        },
+        {
+          "country": "Belgium",
+          "transactions": 47,
+          "revenue": 17693.03,
+          "customers": 16
+        },
+        {
+          "country": "Portugal",
+          "transactions": 38,
+          "revenue": 15324.25,
+          "customers": 17
+        },
+        {
+          "country": "Channel Islands",
+          "transactions": 22,
+          "revenue": 14936.6,
+          "customers": 8
+        },
+        {
+          "country": "Italy",
+          "transactions": 26,
+          "revenue": 11191.91,
+          "customers": 11
+        },
+        {
+          "country": "Sweden",
+          "transactions": 40,
+          "revenue": 10081.81,
+          "customers": 15
+        },
+        {
+          "country": "Australia",
+          "transactions": 35,
+          "revenue": 9089.39,
+          "customers": 15
+        },
+        {
+          "country": "Austria",
+          "transactions": 24,
+          "revenue": 9009.210000000001,
+          "customers": 10
+        },
+        {
+          "country": "Cyprus",
+          "transactions": 19,
+          "revenue": 7805.56,
+          "customers": 6
+        },
+        {
+          "country": "Greece",
+          "transactions": 13,
+          "revenue": 7407.85,
+          "customers": 4
+        },
+        {
+          "country": "Norway",
+          "transactions": 9,
+          "revenue": 6277.04,
+          "customers": 4
+        },
+        {
+          "country": "Denmark",
+          "transactions": 20,
+          "revenue": 6135.61,
+          "customers": 9
+        },
+        {
+          "country": "Finland",
+          "transactions": 13,
+          "revenue": 5497.96,
+          "customers": 5
+        },
+        {
+          "country": "United Arab Emirates",
+          "transactions": 7,
+          "revenue": 5047.2300000000005,
+          "customers": 4
+        }
+      ],
+      "product_type": [
+        {
+          "product_type": "fast_moving_consumer_goods",
+          "transactions": 17263,
+          "revenue": 4662232.354,
+          "quantity": 2563571
+        }
+      ]
+    },
+    "correlation_analysis": {
+      "correlation_matrix": {
+        "quantity": {
+          "quantity": 1.0,
+          "price": -0.364,
+          "transaction_amount": 0.477
+        },
+        "price": {
+          "quantity": -0.364,
+          "price": 1.0,
+          "transaction_amount": 0.312
+        },
+        "transaction_amount": {
+          "quantity": 0.477,
+          "price": 0.312,
+          "transaction_amount": 1.0
+        }
+      }
+    },
+    "top_products": [
+      {
+        "product_code": "85123A",
+        "description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "revenue": 46229.94,
+        "quantity_sold": 15788,
+        "transactions": 2307
+      },
+      {
+        "product_code": 22423,
+        "description": "REGENCY CAKESTAND 3 TIER",
+        "revenue": 31301.25,
+        "quantity_sold": 2460,
+        "transactions": 1182
+      },
+      {
+        "product_code": 84879,
+        "description": "ASSORTED COLOUR BIRD ORNAMENT",
+        "revenue": 26743.739999999998,
+        "quantity_sold": 15894,
+        "transactions": 1136
+      },
+      {
+        "product_code": 21754,
+        "description": "HOME BUILDING BLOCK WORD",
+        "revenue": 20412.95,
+        "quantity_sold": 3431,
+        "transactions": 1089
+      },
+      {
+        "product_code": 21232,
+        "description": "STRAWBERRY CERAMIC TRINKET BOX",
+        "revenue": 16690.58,
+        "quantity_sold": 13378,
+        "transactions": 1199
+      },
+      {
+        "product_code": 21755,
+        "description": "LOVE BUILDING BLOCK WORD",
+        "revenue": 15994.5,
+        "quantity_sold": 2688,
+        "transactions": 902
+      },
+      {
+        "product_code": 20725,
+        "description": "LUNCH BAG RED SPOTTY",
+        "revenue": 15234.45,
+        "quantity_sold": 9265,
+        "transactions": 972
+      },
+      {
+        "product_code": "82494L",
+        "description": "WOODEN FRAME ANTIQUE WHITE",
+        "revenue": 15231.850000000002,
+        "quantity_sold": 5287,
+        "transactions": 917
+      },
+      {
+        "product_code": 22470,
+        "description": "HEART OF WICKER LARGE",
+        "revenue": 14687.000000000002,
+        "quantity_sold": 4980,
+        "transactions": 938
+      },
+      {
+        "product_code": "POST",
+        "description": "POSTAGE",
+        "revenue": 14646.4,
+        "quantity_sold": 809,
+        "transactions": 445
+      }
+    ],
+    "top_customers": [
+      {
+        "customer_id": 14911,
+        "total_spend": 101658.59,
+        "transactions": 184,
+        "items_purchased": 50597
+      },
+      {
+        "customer_id": 17850,
+        "total_spend": 47327.520000000004,
+        "transactions": 155,
+        "items_purchased": 20427
+      },
+      {
+        "customer_id": 14156,
+        "total_spend": 37210.94,
+        "transactions": 72,
+        "items_purchased": 18469
+      },
+      {
+        "customer_id": 13089,
+        "total_spend": 27931.65,
+        "transactions": 85,
+        "items_purchased": 17216
+      },
+      {
+        "customer_id": 17841,
+        "total_spend": 24324.6,
+        "transactions": 90,
+        "items_purchased": 12618
+      },
+      {
+        "customer_id": 13081,
+        "total_spend": 21364.36,
+        "transactions": 18,
+        "items_purchased": 15488
+      },
+      {
+        "customer_id": 14298,
+        "total_spend": 21201.13,
+        "transactions": 32,
+        "items_purchased": 15356
+      },
+      {
+        "customer_id": 14606,
+        "total_spend": 17467.33,
+        "transactions": 102,
+        "items_purchased": 8595
+      },
+      {
+        "customer_id": 12921,
+        "total_spend": 16089.57,
+        "transactions": 39,
+        "items_purchased": 10044
+      },
+      {
+        "customer_id": 14527,
+        "total_spend": 15360.54,
+        "transactions": 69,
+        "items_purchased": 4137
+      }
+    ],
+    "insights": [
+      {
+        "type": "revenue",
+        "title": "Total Revenue",
+        "value": "$4,662,232.35",
+        "description": "Average transaction value: $12.63"
+      },
+      {
+        "type": "customers",
+        "title": "Unique Customers",
+        "value": "4,146",
+        "description": "Avg revenue per customer: $1,124.51"
+      },
+      {
+        "type": "geography",
+        "title": "Top Market",
+        "value": "United Kingdom",
+        "description": "Revenue: $4,087,734.22"
+      }
+    ],
+    "data_shape": [
+      369097,
+      23
+    ]
+  },
+  "rfm": {
+    "total_customers": 4146,
+    "reference_date": "2026-02-08T19:08:51.199617",
+    "segment_summary": [
+      {
+        "segment": "Champions",
+        "customer_count": 869,
+        "avg_recency": 5552.78,
+        "avg_frequency": 10.7,
+        "avg_monetary": 3045.74,
+        "total_monetary": 2646745.75,
+        "customer_pct": 20.96,
+        "revenue_pct": 56.77
+      },
+      {
+        "segment": "Loyal Customers",
+        "customer_count": 697,
+        "avg_recency": 5615.71,
+        "avg_frequency": 5.33,
+        "avg_monetary": 1354.41,
+        "total_monetary": 944026.49,
+        "customer_pct": 16.81,
+        "revenue_pct": 20.25
+      },
+      {
+        "segment": "Need Attention",
+        "customer_count": 507,
+        "avg_recency": 5629.32,
+        "avg_frequency": 2.22,
+        "avg_monetary": 696.6,
+        "total_monetary": 353174.82,
+        "customer_pct": 12.23,
+        "revenue_pct": 7.58
+      },
+      {
+        "segment": "Potential Loyalists",
+        "customer_count": 489,
+        "avg_recency": 5557.94,
+        "avg_frequency": 1.97,
+        "avg_monetary": 567.52,
+        "total_monetary": 277518.64,
+        "customer_pct": 11.79,
+        "revenue_pct": 5.95
+      },
+      {
+        "segment": "Lost",
+        "customer_count": 449,
+        "avg_recency": 5772.52,
+        "avg_frequency": 1.48,
+        "avg_monetary": 281.31,
+        "total_monetary": 126308.25,
+        "customer_pct": 10.83,
+        "revenue_pct": 2.71
+      },
+      {
+        "segment": "Hibernating",
+        "customer_count": 328,
+        "avg_recency": 5812.12,
+        "avg_frequency": 1.0,
+        "avg_monetary": 253.23,
+        "total_monetary": 83059.52,
+        "customer_pct": 7.91,
+        "revenue_pct": 1.78
+      },
+      {
+        "segment": "Promising",
+        "customer_count": 348,
+        "avg_recency": 5588.14,
+        "avg_frequency": 1.73,
+        "avg_monetary": 228.75,
+        "total_monetary": 79605.63,
+        "customer_pct": 8.39,
+        "revenue_pct": 1.71
+      },
+      {
+        "segment": "About to Sleep",
+        "customer_count": 256,
+        "avg_recency": 5659.76,
+        "avg_frequency": 1.03,
+        "avg_monetary": 239.25,
+        "total_monetary": 61247.84,
+        "customer_pct": 6.17,
+        "revenue_pct": 1.31
+      },
+      {
+        "segment": "At Risk",
+        "customer_count": 67,
+        "avg_recency": 5769.57,
+        "avg_frequency": 2.36,
+        "avg_monetary": 735.79,
+        "total_monetary": 49297.85,
+        "customer_pct": 1.62,
+        "revenue_pct": 1.06
+      },
+      {
+        "segment": "Recent Customers",
+        "customer_count": 136,
+        "avg_recency": 5558.38,
+        "avg_frequency": 1.0,
+        "avg_monetary": 303.29,
+        "total_monetary": 41247.55,
+        "customer_pct": 3.28,
+        "revenue_pct": 0.88
+      }
+    ],
+    "rfm_distribution": {
+      "r_score_distribution": {
+        "1": 822,
+        "2": 823,
+        "3": 827,
+        "4": 826,
+        "5": 848
+      },
+      "f_score_distribution": {
+        "1": 830,
+        "2": 829,
+        "3": 829,
+        "4": 829,
+        "5": 829
+      },
+      "m_score_distribution": {
+        "1": 830,
+        "2": 829,
+        "3": 829,
+        "4": 829,
+        "5": 829
+      },
+      "segment_distribution": {
+        "Champions": 869,
+        "Loyal Customers": 697,
+        "Need Attention": 507,
+        "Potential Loyalists": 489,
+        "Lost": 449,
+        "Promising": 348,
+        "Hibernating": 328,
+        "About to Sleep": 256,
+        "Recent Customers": 136,
+        "At Risk": 67
+      }
+    },
+    "rfm_matrix": [
+      {
+        "recency": 1,
+        "frequency": 1,
+        "count": 328,
+        "revenue": 83059.52
+      },
+      {
+        "recency": 1,
+        "frequency": 2,
+        "count": 281,
+        "revenue": 71979.72
+      },
+      {
+        "recency": 1,
+        "frequency": 3,
+        "count": 142,
+        "revenue": 65978.09
+      },
+      {
+        "recency": 1,
+        "frequency": 4,
+        "count": 55,
+        "revenue": 44921.52
+      },
+      {
+        "recency": 1,
+        "frequency": 5,
+        "count": 16,
+        "revenue": 24469.65
+      },
+      {
+        "recency": 2,
+        "frequency": 1,
+        "count": 188,
+        "revenue": 53173.76
+      },
+      {
+        "recency": 2,
+        "frequency": 2,
+        "count": 175,
+        "revenue": 60818.409999999996
+      },
+      {
+        "recency": 2,
+        "frequency": 3,
+        "count": 225,
+        "revenue": 138879.76
+      },
+      {
+        "recency": 2,
+        "frequency": 4,
+        "count": 174,
+        "revenue": 199445.75
+      },
+      {
+        "recency": 2,
+        "frequency": 5,
+        "count": 61,
+        "revenue": 127690.56
+      },
+      {
+        "recency": 3,
+        "frequency": 1,
+        "count": 178,
+        "revenue": 56882.86
+      },
+      {
+        "recency": 3,
+        "frequency": 2,
+        "count": 159,
+        "revenue": 62551.23
+      },
+      {
+        "recency": 3,
+        "frequency": 3,
+        "count": 187,
+        "revenue": 133023.48
+      },
+      {
+        "recency": 3,
+        "frequency": 4,
+        "count": 190,
+        "revenue": 230589.06
+      },
+      {
+        "recency": 3,
+        "frequency": 5,
+        "count": 113,
+        "revenue": 252749.43
+      },
+      {
+        "recency": 4,
+        "frequency": 1,
+        "count": 86,
+        "revenue": 27625.07
+      },
+      {
+        "recency": 4,
+        "frequency": 2,
+        "count": 147,
+        "revenue": 61955.45
+      },
+      {
+        "recency": 4,
+        "frequency": 3,
+        "count": 164,
+        "revenue": 105970.96
+      },
+      {
+        "recency": 4,
+        "frequency": 4,
+        "count": 217,
+        "revenue": 246361.39
+      },
+      {
+        "recency": 4,
+        "frequency": 5,
+        "count": 212,
+        "revenue": 610129.69
+      },
+      {
+        "recency": 5,
+        "frequency": 1,
+        "count": 50,
+        "revenue": 13622.48
+      },
+      {
+        "recency": 5,
+        "frequency": 2,
+        "count": 67,
+        "revenue": 27310.49
+      },
+      {
+        "recency": 5,
+        "frequency": 3,
+        "count": 111,
+        "revenue": 82281.74
+      },
+      {
+        "recency": 5,
+        "frequency": 4,
+        "count": 193,
+        "revenue": 205453.58
+      },
+      {
+        "recency": 5,
+        "frequency": 5,
+        "count": 427,
+        "revenue": 1675308.69
+      }
+    ],
+    "metrics_summary": {
+      "avg_recency": 5630.9,
+      "avg_frequency": 4.16,
+      "avg_monetary": 1124.51,
+      "total_revenue": 4662232.34
+    }
+  },
+  "segmentation": {
+    "n_clusters": 2,
+    "total_customers": 4146,
+    "cluster_profiles": [
+      {
+        "cluster_id": 0,
+        "customer_count": 1624,
+        "percentage": 39.17,
+        "avg_transactions": 7.88,
+        "avg_spend": 2202.7,
+        "total_revenue": 3577187.9,
+        "avg_transaction_value": 15.09,
+        "avg_items": 1206.07,
+        "avg_recency": 30.99,
+        "avg_tenure": 275.63,
+        "label": "VIP Customers"
+      },
+      {
+        "cluster_id": 1,
+        "customer_count": 2522,
+        "percentage": 60.83,
+        "avg_transactions": 1.77,
+        "avg_spend": 430.23,
+        "total_revenue": 1085044.45,
+        "avg_transaction_value": 15.62,
+        "avg_items": 239.85,
+        "avg_recency": 129.49,
+        "avg_tenure": 39.25,
+        "label": "Low-Value"
+      }
+    ],
+    "cluster_distribution": {
+      "cluster_sizes": {
+        "0": 1624,
+        "1": 2522
+      },
+      "total_customers": 4146,
+      "n_clusters": 2
+    },
+    "cluster_centroids": [
+      {
+        "cluster_id": 0,
+        "total_transactions": 7.87,
+        "total_spend": 2199.91,
+        "avg_transaction": 15.09,
+        "total_items": 1204.5,
+        "recency_days": 31.02,
+        "tenure_days": 275.46
+      },
+      {
+        "cluster_id": 1,
+        "total_transactions": 1.77,
+        "total_spend": 429.92,
+        "avg_transaction": 15.62,
+        "total_items": 239.72,
+        "recency_days": 129.59,
+        "tenure_days": 39.08
+      }
+    ],
+    "silhouette_score": 0.319,
+    "features_used": [
+      "total_transactions",
+      "total_spend",
+      "avg_transaction",
+      "total_items",
+      "recency_days",
+      "tenure_days"
+    ],
+    "elbow_analysis": {
+      "k_values": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "inertias": [
+        18894.09,
+        14168.41,
+        11774.35,
+        9687.85,
+        8225.75,
+        6969.23,
+        6218.28,
+        5578.64,
+        5014.68
+      ],
+      "silhouette_scores": [
+        0.319,
+        0.3182,
+        0.2911,
+        0.2971,
+        0.3082,
+        0.3178,
+        0.3054,
+        0.3047,
+        0.3096
+      ],
+      "optimal_k": 2,
+      "best_silhouette": 0.319
+    }
+  },
+  "clv": {
+    "time_horizon_months": 12,
+    "summary": {
+      "total_customers": 4146,
+      "total_historical_revenue": 4662232.34,
+      "total_predicted_clv": 9158372.0,
+      "avg_clv": 2208.97,
+      "median_clv": 254.52,
+      "max_clv": 35094.73,
+      "min_clv": 0.0,
+      "avg_order_value": 15.41,
+      "avg_purchase_frequency": 12.2,
+      "avg_churn_probability": 0.61,
+      "total_risk_adjusted_clv": 308487.59
+    },
+    "distribution": [
+      {
+        "bucket": "$0-100",
+        "customer_count": 964,
+        "total_clv": 56565.63
+      },
+      {
+        "bucket": "$100-500",
+        "customer_count": 1503,
+        "total_clv": 315220.08
+      },
+      {
+        "bucket": "$500-1K",
+        "customer_count": 144,
+        "total_clv": 100216.71
+      },
+      {
+        "bucket": "$1K-5K",
+        "customer_count": 591,
+        "total_clv": 1629549.43
+      },
+      {
+        "bucket": "$5K-10K",
+        "customer_count": 814,
+        "total_clv": 5313469.17
+      },
+      {
+        "bucket": "$10K+",
+        "customer_count": 128,
+        "total_clv": 1743350.98
+      }
+    ],
+    "top_customers": [
+      {
+        "customer_id": 16555,
+        "total_orders": 4,
+        "total_revenue": 768.61,
+        "avg_order_value": 24.02,
+        "purchase_frequency": 121.76,
+        "predictive_clv": 35094.73,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 15546,
+        "total_orders": 2,
+        "total_revenue": 174.4,
+        "avg_order_value": 43.6,
+        "purchase_frequency": 60.88,
+        "predictive_clv": 31852.42,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17901,
+        "total_orders": 2,
+        "total_revenue": 69.9,
+        "avg_order_value": 34.95,
+        "purchase_frequency": 60.88,
+        "predictive_clv": 25533.07,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14207,
+        "total_orders": 1,
+        "total_revenue": 55.8,
+        "avg_order_value": 55.8,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 20382.62,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17924,
+        "total_orders": 1,
+        "total_revenue": 55.8,
+        "avg_order_value": 55.8,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 20382.62,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17743,
+        "total_orders": 1,
+        "total_revenue": 52.2,
+        "avg_order_value": 52.2,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 19067.62,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14712,
+        "total_orders": 1,
+        "total_revenue": 103.2,
+        "avg_order_value": 51.6,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 18848.45,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 18035,
+        "total_orders": 2,
+        "total_revenue": 51.3,
+        "avg_order_value": 25.65,
+        "purchase_frequency": 60.88,
+        "predictive_clv": 18738.86,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14279,
+        "total_orders": 1,
+        "total_revenue": 51.0,
+        "avg_order_value": 51.0,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 18629.28,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14495,
+        "total_orders": 1,
+        "total_revenue": 51.0,
+        "avg_order_value": 51.0,
+        "purchase_frequency": 30.44,
+        "predictive_clv": 18629.28,
+        "risk_adjusted_clv": 0.0,
+        "churn_probability": 1.0
+      }
+    ],
+    "at_risk_customers": [
+      {
+        "customer_id": 16555,
+        "total_orders": 4,
+        "total_revenue": 768.61,
+        "days_since_last": 140,
+        "predictive_clv": 35094.73,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 15546,
+        "total_orders": 2,
+        "total_revenue": 174.4,
+        "days_since_last": 241,
+        "predictive_clv": 31852.42,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17901,
+        "total_orders": 2,
+        "total_revenue": 69.9,
+        "days_since_last": 156,
+        "predictive_clv": 25533.07,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14207,
+        "total_orders": 1,
+        "total_revenue": 55.8,
+        "days_since_last": 322,
+        "predictive_clv": 20382.62,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17924,
+        "total_orders": 1,
+        "total_revenue": 55.8,
+        "days_since_last": 8,
+        "predictive_clv": 20382.62,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 17743,
+        "total_orders": 1,
+        "total_revenue": 52.2,
+        "days_since_last": 83,
+        "predictive_clv": 19067.62,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14712,
+        "total_orders": 1,
+        "total_revenue": 103.2,
+        "days_since_last": 53,
+        "predictive_clv": 18848.45,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 18035,
+        "total_orders": 2,
+        "total_revenue": 51.3,
+        "days_since_last": 20,
+        "predictive_clv": 18738.86,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14279,
+        "total_orders": 1,
+        "total_revenue": 51.0,
+        "days_since_last": 316,
+        "predictive_clv": 18629.28,
+        "churn_probability": 1.0
+      },
+      {
+        "customer_id": 14495,
+        "total_orders": 1,
+        "total_revenue": 51.0,
+        "days_since_last": 294,
+        "predictive_clv": 18629.28,
+        "churn_probability": 1.0
+      }
+    ],
+    "metrics_explanation": {
+      "predictive_clv": "Expected revenue per customer over next 12 months",
+      "risk_adjusted_clv": "CLV adjusted for churn probability",
+      "purchase_frequency": "Average orders per month",
+      "churn_probability": "Likelihood of customer not returning (0-1)"
+    }
+  },
+  "kpis": {
+    "generated_at": "2026-02-08T19:08:53.775342",
+    "kpis": {
+      "revenue": {
+        "total_revenue": 4662232.35,
+        "avg_order_value": 12.63,
+        "median_order_value": 10.4,
+        "revenue_per_transaction": 270.07,
+        "total_transactions": 17263,
+        "total_items_sold": 2563571,
+        "avg_items_per_transaction": 6.95
+      },
+      "customer": {
+        "unique_customers": 4146,
+        "revenue_per_customer": 1124.51,
+        "avg_orders_per_customer": 4.16,
+        "max_orders_single_customer": 184,
+        "repeat_customer_count": 2749,
+        "single_purchase_customers": 1397,
+        "repeat_customer_rate": 66.3
+      },
+      "product": {
+        "unique_products": 3970,
+        "avg_revenue_per_product": 1174.37,
+        "max_product_revenue": 46229.94,
+        "top_product": "85123A",
+        "unique_product_types": 1,
+        "top_category": "fast_moving_consumer_goods"
+      },
+      "geographic": {
+        "unique_countries": 37,
+        "top_country": "United Kingdom",
+        "top_country_revenue": 4087734.22,
+        "top_country_share": 87.68,
+        "country_hhi": 7709.46
+      },
+      "time": {
+        "start_date": "2009-12-01",
+        "end_date": "2010-12-09",
+        "data_span_days": 373,
+        "avg_monthly_revenue": 358633.26,
+        "best_month": "2010-11",
+        "best_month_revenue": 644393.52,
+        "avg_daily_revenue": 15186.42,
+        "best_day_revenue": 33828.69,
+        "avg_daily_transactions": 56.23
+      },
+      "growth": {
+        "mom_growth": -75.3,
+        "avg_monthly_growth": 0.81,
+        "yoy_growth": 1117.64
+      }
+    },
+    "summary": [
+      {
+        "category": "Revenue",
+        "name": "Total Revenue",
+        "value": "$4,662,232.35",
+        "raw_value": 4662232.35
+      },
+      {
+        "category": "Revenue",
+        "name": "Average Order Value",
+        "value": "$12.63",
+        "raw_value": 12.63
+      },
+      {
+        "category": "Revenue",
+        "name": "Total Transactions",
+        "value": "17,263",
+        "raw_value": 17263
+      },
+      {
+        "category": "Customer",
+        "name": "Unique Customers",
+        "value": "4,146",
+        "raw_value": 4146
+      },
+      {
+        "category": "Customer",
+        "name": "Repeat Customer Rate",
+        "value": "66.3%",
+        "raw_value": 66.3
+      },
+      {
+        "category": "Growth",
+        "name": "Month over Month",
+        "value": "-75.3%",
+        "raw_value": -75.3
+      }
+    ]
+  },
+  "performance": {
+    "generated_at": "2026-02-08T19:08:53.802696",
+    "monthly": [
+      {
+        "period": "2009-12",
+        "unique_transactions": 1364,
+        "revenue": 353831.78,
+        "avg_transaction": 12.83,
+        "transaction_count": 27574,
+        "items_sold": 181351,
+        "unique_customers": 904,
+        "revenue_growth": 0.0,
+        "customer_growth": 0.0,
+        "transaction_growth": 0.0
+      },
+      {
+        "period": "2010-01",
+        "unique_transactions": 885,
+        "revenue": 248421.13,
+        "avg_transaction": 12.73,
+        "transaction_count": 19515,
+        "items_sold": 135197,
+        "unique_customers": 671,
+        "revenue_growth": -29.79,
+        "customer_growth": -25.77,
+        "transaction_growth": -35.12
+      },
+      {
+        "period": "2010-02",
+        "unique_transactions": 993,
+        "revenue": 263228.43,
+        "avg_transaction": 12.44,
+        "transaction_count": 21156,
+        "items_sold": 143207,
+        "unique_customers": 735,
+        "revenue_growth": 5.96,
+        "customer_growth": 9.54,
+        "transaction_growth": 12.2
+      },
+      {
+        "period": "2010-03",
+        "unique_transactions": 1361,
+        "revenue": 365576.16,
+        "avg_transaction": 12.47,
+        "transaction_count": 29308,
+        "items_sold": 201414,
+        "unique_customers": 990,
+        "revenue_growth": 38.88,
+        "customer_growth": 34.69,
+        "transaction_growth": 37.06
+      },
+      {
+        "period": "2010-04",
+        "unique_transactions": 1178,
+        "revenue": 325442.7,
+        "avg_transaction": 13.28,
+        "transaction_count": 24502,
+        "items_sold": 174013,
+        "unique_customers": 893,
+        "revenue_growth": -10.98,
+        "customer_growth": -9.8,
+        "transaction_growth": -13.45
+      },
+      {
+        "period": "2010-05",
+        "unique_transactions": 1237,
+        "revenue": 332453.07,
+        "avg_transaction": 12.87,
+        "transaction_count": 25826,
+        "items_sold": 178891,
+        "unique_customers": 915,
+        "revenue_growth": 2.15,
+        "customer_growth": 2.46,
+        "transaction_growth": 5.01
+      },
+      {
+        "period": "2010-06",
+        "unique_transactions": 1352,
+        "revenue": 353663.74,
+        "avg_transaction": 12.44,
+        "transaction_count": 28432,
+        "items_sold": 195611,
+        "unique_customers": 982,
+        "revenue_growth": 6.38,
+        "customer_growth": 7.32,
+        "transaction_growth": 9.3
+      },
+      {
+        "period": "2010-07",
+        "unique_transactions": 1242,
+        "revenue": 315357.15,
+        "avg_transaction": 12.84,
+        "transaction_count": 24552,
+        "items_sold": 176454,
+        "unique_customers": 872,
+        "revenue_growth": -10.83,
+        "customer_growth": -11.2,
+        "transaction_growth": -8.14
+      },
+      {
+        "period": "2010-08",
+        "unique_transactions": 1159,
+        "revenue": 305591.71,
+        "avg_transaction": 12.89,
+        "transaction_count": 23708,
+        "items_sold": 177719,
+        "unique_customers": 852,
+        "revenue_growth": -3.1,
+        "customer_growth": -2.29,
+        "transaction_growth": -6.68
+      },
+      {
+        "period": "2010-09",
+        "unique_transactions": 1501,
+        "revenue": 423297.25,
+        "avg_transaction": 13.56,
+        "transaction_count": 31220,
+        "items_sold": 244364,
+        "unique_customers": 1068,
+        "revenue_growth": 38.52,
+        "customer_growth": 25.35,
+        "transaction_growth": 29.51
+      },
+      {
+        "period": "2010-10",
+        "unique_transactions": 1940,
+        "revenue": 571801.3,
+        "avg_transaction": 12.65,
+        "transaction_count": 45195,
+        "items_sold": 327469,
+        "unique_customers": 1421,
+        "revenue_growth": 35.08,
+        "customer_growth": 33.05,
+        "transaction_growth": 29.25
+      },
+      {
+        "period": "2010-11",
+        "unique_transactions": 2353,
+        "revenue": 644393.52,
+        "avg_transaction": 11.73,
+        "transaction_count": 54919,
+        "items_sold": 346248,
+        "unique_customers": 1533,
+        "revenue_growth": 12.7,
+        "customer_growth": 7.88,
+        "transaction_growth": 21.29
+      },
+      {
+        "period": "2010-12",
+        "unique_transactions": 698,
+        "revenue": 159174.41,
+        "avg_transaction": 12.07,
+        "transaction_count": 13190,
+        "items_sold": 81633,
+        "unique_customers": 528,
+        "revenue_growth": -75.3,
+        "customer_growth": -65.56,
+        "transaction_growth": -70.34
+      }
+    ],
+    "quarterly": [
+      {
+        "period": "2009Q4",
+        "transactions": 1364,
+        "revenue": 353831.78,
+        "customers": 904,
+        "revenue_growth": 0.0
+      },
+      {
+        "period": "2010Q1",
+        "transactions": 3239,
+        "revenue": 877225.72,
+        "customers": 1708,
+        "revenue_growth": 147.92
+      },
+      {
+        "period": "2010Q2",
+        "transactions": 3767,
+        "revenue": 1011559.51,
+        "customers": 1956,
+        "revenue_growth": 15.31
+      },
+      {
+        "period": "2010Q3",
+        "transactions": 3902,
+        "revenue": 1044246.11,
+        "customers": 1941,
+        "revenue_growth": 3.23
+      },
+      {
+        "period": "2010Q4",
+        "transactions": 4991,
+        "revenue": 1375369.23,
+        "customers": 2477,
+        "revenue_growth": 31.71
+      }
+    ],
+    "yearly": [
+      {
+        "year": 2009,
+        "transactions": 1364,
+        "revenue": 353831.78,
+        "customers": 904,
+        "revenue_growth": 0.0
+      },
+      {
+        "year": 2010,
+        "transactions": 15899,
+        "revenue": 4308400.57,
+        "customers": 4036,
+        "revenue_growth": 1117.64
+      }
+    ],
+    "by_category": [
+      {
+        "category": "fast_moving_consumer_goods",
+        "transactions": 17263,
+        "revenue": 4662232.35,
+        "avg_transaction": 12.63,
+        "items_sold": 2563571,
+        "unique_customers": 4146,
+        "market_share": 100.0
+      }
+    ],
+    "by_country": [
+      {
+        "country": "United Kingdom",
+        "transactions": 15891,
+        "revenue": 4087734.22,
+        "avg_transaction": 12.09,
+        "items_sold": 2245192,
+        "unique_customers": 3822,
+        "market_share": 87.68
+      },
+      {
+        "country": "Eire",
+        "transactions": 263,
+        "revenue": 143494.67,
+        "avg_transaction": 19.65,
+        "items_sold": 71597,
+        "unique_customers": 3,
+        "market_share": 3.08
+      },
+      {
+        "country": "Germany",
+        "transactions": 323,
+        "revenue": 130418.63,
+        "avg_transaction": 18.9,
+        "items_sold": 73694,
+        "unique_customers": 67,
+        "market_share": 2.8
+      },
+      {
+        "country": "France",
+        "transactions": 220,
+        "revenue": 88736.78,
+        "avg_transaction": 18.02,
+        "items_sold": 51524,
+        "unique_customers": 45,
+        "market_share": 1.9
+      },
+      {
+        "country": "Netherlands",
+        "transactions": 95,
+        "revenue": 19118.87,
+        "avg_transaction": 14.64,
+        "items_sold": 11931,
+        "unique_customers": 22,
+        "market_share": 0.41
+      },
+      {
+        "country": "Switzerland",
+        "transactions": 36,
+        "revenue": 18825.11,
+        "avg_transaction": 20.31,
+        "items_sold": 10954,
+        "unique_customers": 14,
+        "market_share": 0.4
+      },
+      {
+        "country": "Spain",
+        "transactions": 52,
+        "revenue": 18566.87,
+        "avg_transaction": 16.99,
+        "items_sold": 11114,
+        "unique_customers": 21,
+        "market_share": 0.4
+      },
+      {
+        "country": "Belgium",
+        "transactions": 47,
+        "revenue": 17693.03,
+        "avg_transaction": 18.47,
+        "items_sold": 9605,
+        "unique_customers": 16,
+        "market_share": 0.38
+      },
+      {
+        "country": "Portugal",
+        "transactions": 38,
+        "revenue": 15324.25,
+        "avg_transaction": 17.43,
+        "items_sold": 8688,
+        "unique_customers": 17,
+        "market_share": 0.33
+      },
+      {
+        "country": "Channel Islands",
+        "transactions": 22,
+        "revenue": 14936.6,
+        "avg_transaction": 20.43,
+        "items_sold": 7049,
+        "unique_customers": 8,
+        "market_share": 0.32
+      },
+      {
+        "country": "Italy",
+        "transactions": 26,
+        "revenue": 11191.91,
+        "avg_transaction": 16.88,
+        "items_sold": 5481,
+        "unique_customers": 11,
+        "market_share": 0.24
+      },
+      {
+        "country": "Sweden",
+        "transactions": 40,
+        "revenue": 10081.81,
+        "avg_transaction": 18.4,
+        "items_sold": 6455,
+        "unique_customers": 15,
+        "market_share": 0.22
+      },
+      {
+        "country": "Australia",
+        "transactions": 35,
+        "revenue": 9089.39,
+        "avg_transaction": 19.72,
+        "items_sold": 5151,
+        "unique_customers": 15,
+        "market_share": 0.19
+      },
+      {
+        "country": "Austria",
+        "transactions": 24,
+        "revenue": 9009.21,
+        "avg_transaction": 18.73,
+        "items_sold": 5528,
+        "unique_customers": 10,
+        "market_share": 0.19
+      },
+      {
+        "country": "Cyprus",
+        "transactions": 19,
+        "revenue": 7805.56,
+        "avg_transaction": 15.58,
+        "items_sold": 3264,
+        "unique_customers": 6,
+        "market_share": 0.17
+      },
+      {
+        "country": "Greece",
+        "transactions": 13,
+        "revenue": 7407.85,
+        "avg_transaction": 17.03,
+        "items_sold": 4225,
+        "unique_customers": 4,
+        "market_share": 0.16
+      },
+      {
+        "country": "Norway",
+        "transactions": 9,
+        "revenue": 6277.04,
+        "avg_transaction": 21.21,
+        "items_sold": 4615,
+        "unique_customers": 4,
+        "market_share": 0.13
+      },
+      {
+        "country": "Denmark",
+        "transactions": 20,
+        "revenue": 6135.61,
+        "avg_transaction": 24.16,
+        "items_sold": 3695,
+        "unique_customers": 9,
+        "market_share": 0.13
+      },
+      {
+        "country": "Finland",
+        "transactions": 13,
+        "revenue": 5497.96,
+        "avg_transaction": 16.66,
+        "items_sold": 3286,
+        "unique_customers": 5,
+        "market_share": 0.12
+      },
+      {
+        "country": "United Arab Emirates",
+        "transactions": 7,
+        "revenue": 5047.23,
+        "avg_transaction": 17.9,
+        "items_sold": 3102,
+        "unique_customers": 4,
+        "market_share": 0.11
+      },
+      {
+        "country": "Unspecified",
+        "transactions": 8,
+        "revenue": 4725.9,
+        "avg_transaction": 18.53,
+        "items_sold": 2676,
+        "unique_customers": 4,
+        "market_share": 0.1
+      },
+      {
+        "country": "Usa",
+        "transactions": 11,
+        "revenue": 3624.51,
+        "avg_transaction": 16.7,
+        "items_sold": 2035,
+        "unique_customers": 5,
+        "market_share": 0.08
+      },
+      {
+        "country": "Poland",
+        "transactions": 10,
+        "revenue": 3346.2,
+        "avg_transaction": 18.69,
+        "items_sold": 2062,
+        "unique_customers": 2,
+        "market_share": 0.07
+      },
+      {
+        "country": "Lithuania",
+        "transactions": 5,
+        "revenue": 3209.51,
+        "avg_transaction": 25.07,
+        "items_sold": 1669,
+        "unique_customers": 1,
+        "market_share": 0.07
+      },
+      {
+        "country": "Singapore",
+        "transactions": 4,
+        "revenue": 2688.13,
+        "avg_transaction": 24.89,
+        "items_sold": 1405,
+        "unique_customers": 1,
+        "market_share": 0.06
+      },
+      {
+        "country": "Malta",
+        "transactions": 2,
+        "revenue": 2358.76,
+        "avg_transaction": 14.38,
+        "items_sold": 1254,
+        "unique_customers": 1,
+        "market_share": 0.05
+      },
+      {
+        "country": "Japan",
+        "transactions": 14,
+        "revenue": 1582.22,
+        "avg_transaction": 13.08,
+        "items_sold": 1059,
+        "unique_customers": 5,
+        "market_share": 0.03
+      },
+      {
+        "country": "Israel",
+        "transactions": 2,
+        "revenue": 1271.06,
+        "avg_transaction": 22.3,
+        "items_sold": 806,
+        "unique_customers": 2,
+        "market_share": 0.03
+      },
+      {
+        "country": "Iceland",
+        "transactions": 2,
+        "revenue": 1252.52,
+        "avg_transaction": 17.89,
+        "items_sold": 804,
+        "unique_customers": 1,
+        "market_share": 0.03
+      },
+      {
+        "country": "Canada",
+        "transactions": 2,
+        "revenue": 1216.66,
+        "avg_transaction": 15.8,
+        "items_sold": 894,
+        "unique_customers": 1,
+        "market_share": 0.03
+      },
+      {
+        "country": "Thailand",
+        "transactions": 1,
+        "revenue": 1113.7,
+        "avg_transaction": 16.87,
+        "items_sold": 524,
+        "unique_customers": 1,
+        "market_share": 0.02
+      },
+      {
+        "country": "Rsa",
+        "transactions": 1,
+        "revenue": 931.43,
+        "avg_transaction": 14.33,
+        "items_sold": 591,
+        "unique_customers": 1,
+        "market_share": 0.02
+      },
+      {
+        "country": "Korea",
+        "transactions": 2,
+        "revenue": 918.11,
+        "avg_transaction": 18.74,
+        "items_sold": 532,
+        "unique_customers": 2,
+        "market_share": 0.02
+      },
+      {
+        "country": "Bahrain",
+        "transactions": 2,
+        "revenue": 655.97,
+        "avg_transaction": 16.82,
+        "items_sold": 423,
+        "unique_customers": 2,
+        "market_share": 0.01
+      },
+      {
+        "country": "West Indies",
+        "transactions": 1,
+        "revenue": 536.41,
+        "avg_transaction": 9.93,
+        "items_sold": 395,
+        "unique_customers": 1,
+        "market_share": 0.01
+      },
+      {
+        "country": "Brazil",
+        "transactions": 1,
+        "revenue": 268.27,
+        "avg_transaction": 4.33,
+        "items_sold": 189,
+        "unique_customers": 1,
+        "market_share": 0.01
+      },
+      {
+        "country": "Nigeria",
+        "transactions": 2,
+        "revenue": 140.39,
+        "avg_transaction": 4.68,
+        "items_sold": 103,
+        "unique_customers": 1,
+        "market_share": 0.0
+      }
+    ],
+    "by_day_of_week": [
+      {
+        "day": "Monday",
+        "transactions": 2649,
+        "revenue": 739828.48
+      },
+      {
+        "day": "Tuesday",
+        "transactions": 3098,
+        "revenue": 845781.78
+      },
+      {
+        "day": "Wednesday",
+        "transactions": 3036,
+        "revenue": 795557.31
+      },
+      {
+        "day": "Thursday",
+        "transactions": 3604,
+        "revenue": 964866.43
+      },
+      {
+        "day": "Friday",
+        "transactions": 2298,
+        "revenue": 618400.94
+      },
+      {
+        "day": "Saturday",
+        "transactions": 29,
+        "revenue": 7320.89
+      },
+      {
+        "day": "Sunday",
+        "transactions": 2549,
+        "revenue": 690476.51
+      }
+    ],
+    "top_products": [
+      {
+        "product_code": "85123A",
+        "description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "transactions": 2307,
+        "revenue": 46229.94,
+        "quantity_sold": 15788,
+        "unique_customers": 993,
+        "avg_price": 2.93
+      },
+      {
+        "product_code": 22423,
+        "description": "REGENCY CAKESTAND 3 TIER",
+        "transactions": 1182,
+        "revenue": 31301.25,
+        "quantity_sold": 2460,
+        "unique_customers": 715,
+        "avg_price": 12.72
+      },
+      {
+        "product_code": 84879,
+        "description": "ASSORTED COLOUR BIRD ORNAMENT",
+        "transactions": 1136,
+        "revenue": 26743.74,
+        "quantity_sold": 15894,
+        "unique_customers": 587,
+        "avg_price": 1.68
+      },
+      {
+        "product_code": 21754,
+        "description": "HOME BUILDING BLOCK WORD",
+        "transactions": 1089,
+        "revenue": 20412.95,
+        "quantity_sold": 3431,
+        "unique_customers": 487,
+        "avg_price": 5.95
+      },
+      {
+        "product_code": 21232,
+        "description": "STRAWBERRY CERAMIC TRINKET BOX",
+        "transactions": 1199,
+        "revenue": 16690.58,
+        "quantity_sold": 13378,
+        "unique_customers": 522,
+        "avg_price": 1.25
+      },
+      {
+        "product_code": 21755,
+        "description": "LOVE BUILDING BLOCK WORD",
+        "transactions": 902,
+        "revenue": 15994.5,
+        "quantity_sold": 2688,
+        "unique_customers": 476,
+        "avg_price": 5.95
+      },
+      {
+        "product_code": 20725,
+        "description": "LUNCH BAG RED SPOTTY",
+        "transactions": 972,
+        "revenue": 15234.45,
+        "quantity_sold": 9265,
+        "unique_customers": 483,
+        "avg_price": 1.64
+      },
+      {
+        "product_code": "82494L",
+        "description": "WOODEN FRAME ANTIQUE WHITE",
+        "transactions": 917,
+        "revenue": 15231.85,
+        "quantity_sold": 5287,
+        "unique_customers": 402,
+        "avg_price": 2.88
+      },
+      {
+        "product_code": 22470,
+        "description": "HEART OF WICKER LARGE",
+        "transactions": 938,
+        "revenue": 14687.0,
+        "quantity_sold": 4980,
+        "unique_customers": 553,
+        "avg_price": 2.95
+      },
+      {
+        "product_code": "POST",
+        "description": "POSTAGE",
+        "transactions": 445,
+        "revenue": 14646.4,
+        "quantity_sold": 809,
+        "unique_customers": 162,
+        "avg_price": 18.1
+      },
+      {
+        "product_code": 21733,
+        "description": "RED HANGING HEART T-LIGHT HOLDER",
+        "transactions": 877,
+        "revenue": 14485.05,
+        "quantity_sold": 4959,
+        "unique_customers": 499,
+        "avg_price": 2.92
+      },
+      {
+        "product_code": "85099B",
+        "description": "JUMBO BAG RED RETROSPOT",
+        "transactions": 851,
+        "revenue": 14392.8,
+        "quantity_sold": 7404,
+        "unique_customers": 476,
+        "avg_price": 1.94
+      },
+      {
+        "product_code": 21621,
+        "description": "VINTAGE UNION JACK BUNTING",
+        "transactions": 628,
+        "revenue": 14050.5,
+        "quantity_sold": 1653,
+        "unique_customers": 384,
+        "avg_price": 8.5
+      },
+      {
+        "product_code": 47566,
+        "description": "PARTY BUNTING",
+        "transactions": 587,
+        "revenue": 13810.45,
+        "quantity_sold": 2971,
+        "unique_customers": 346,
+        "avg_price": 4.65
+      },
+      {
+        "product_code": 22138,
+        "description": "BAKING SET 9 PIECE RETROSPOT",
+        "transactions": 834,
+        "revenue": 13679.65,
+        "quantity_sold": 2771,
+        "unique_customers": 599,
+        "avg_price": 4.94
+      },
+      {
+        "product_code": 22383,
+        "description": "LUNCH BAG SUKI  DESIGN",
+        "transactions": 914,
+        "revenue": 13334.75,
+        "quantity_sold": 8095,
+        "unique_customers": 420,
+        "avg_price": 1.65
+      },
+      {
+        "product_code": 82486,
+        "description": "WOOD S/3 CABINET ANT WHITE FINISH",
+        "transactions": 590,
+        "revenue": 13291.3,
+        "quantity_sold": 1734,
+        "unique_customers": 224,
+        "avg_price": 7.67
+      },
+      {
+        "product_code": 22411,
+        "description": "JUMBO SHOPPER VINTAGE RED PAISLEY",
+        "transactions": 844,
+        "revenue": 13118.85,
+        "quantity_sold": 6763,
+        "unique_customers": 426,
+        "avg_price": 1.94
+      },
+      {
+        "product_code": 21931,
+        "description": "JUMBO STORAGE BAG SUKI",
+        "transactions": 870,
+        "revenue": 13026.9,
+        "quantity_sold": 6682,
+        "unique_customers": 376,
+        "avg_price": 1.95
+      },
+      {
+        "product_code": "85099F",
+        "description": "JUMBO BAG STRAWBERRY",
+        "transactions": 765,
+        "revenue": 12303.75,
+        "quantity_sold": 6325,
+        "unique_customers": 362,
+        "avg_price": 1.95
+      }
+    ]
+  },
+  "forecast": {
+    "generated_at": "2026-02-08T19:08:54.168397",
+    "forecast_horizon": 6,
+    "frequency": "M",
+    "historical_periods": 13,
+    "forecasts": {
+      "moving_average": {
+        "method": "Moving Average",
+        "parameters": {
+          "periods": 3
+        },
+        "historical": [
+          {
+            "date": "2009-12-01T00:00:00",
+            "revenue": 353831.78
+          },
+          {
+            "date": "2010-01-01T00:00:00",
+            "revenue": 248421.132
+          },
+          {
+            "date": "2010-02-01T00:00:00",
+            "revenue": 263228.426
+          },
+          {
+            "date": "2010-03-01T00:00:00",
+            "revenue": 365576.161
+          },
+          {
+            "date": "2010-04-01T00:00:00",
+            "revenue": 325442.702
+          },
+          {
+            "date": "2010-05-01T00:00:00",
+            "revenue": 332453.07
+          },
+          {
+            "date": "2010-06-01T00:00:00",
+            "revenue": 353663.74
+          },
+          {
+            "date": "2010-07-01T00:00:00",
+            "revenue": 315357.15
+          },
+          {
+            "date": "2010-08-01T00:00:00",
+            "revenue": 305591.71
+          },
+          {
+            "date": "2010-09-01T00:00:00",
+            "revenue": 423297.251
+          },
+          {
+            "date": "2010-10-01T00:00:00",
+            "revenue": 571801.3
+          },
+          {
+            "date": "2010-11-01T00:00:00",
+            "revenue": 644393.522
+          },
+          {
+            "date": "2010-12-01T00:00:00",
+            "revenue": 159174.41
+          }
+        ],
+        "forecast": [
+          {
+            "date": "2011-02-01",
+            "revenue": 458456.41
+          },
+          {
+            "date": "2011-03-01",
+            "revenue": 458456.41
+          },
+          {
+            "date": "2011-04-01",
+            "revenue": 458456.41
+          },
+          {
+            "date": "2011-05-01",
+            "revenue": 458456.41
+          },
+          {
+            "date": "2011-06-01",
+            "revenue": 458456.41
+          },
+          {
+            "date": "2011-07-01",
+            "revenue": 458456.41
+          }
+        ],
+        "total_forecasted_revenue": 2750738.46
+      },
+      "linear_trend": {
+        "method": "Linear Trend",
+        "parameters": {
+          "slope": 11882.28,
+          "intercept": 287339.59,
+          "r_squared": 0.1292
+        },
+        "historical": [
+          {
+            "date": "2009-12-01",
+            "revenue": 353831.78,
+            "trend": 287339.59
+          },
+          {
+            "date": "2010-01-01",
+            "revenue": 248421.13,
+            "trend": 299221.87
+          },
+          {
+            "date": "2010-02-01",
+            "revenue": 263228.43,
+            "trend": 311104.15
+          },
+          {
+            "date": "2010-03-01",
+            "revenue": 365576.16,
+            "trend": 322986.42
+          },
+          {
+            "date": "2010-04-01",
+            "revenue": 325442.7,
+            "trend": 334868.7
+          },
+          {
+            "date": "2010-05-01",
+            "revenue": 332453.07,
+            "trend": 346750.98
+          },
+          {
+            "date": "2010-06-01",
+            "revenue": 353663.74,
+            "trend": 358633.26
+          },
+          {
+            "date": "2010-07-01",
+            "revenue": 315357.15,
+            "trend": 370515.54
+          },
+          {
+            "date": "2010-08-01",
+            "revenue": 305591.71,
+            "trend": 382397.81
+          },
+          {
+            "date": "2010-09-01",
+            "revenue": 423297.25,
+            "trend": 394280.09
+          },
+          {
+            "date": "2010-10-01",
+            "revenue": 571801.3,
+            "trend": 406162.37
+          },
+          {
+            "date": "2010-11-01",
+            "revenue": 644393.52,
+            "trend": 418044.65
+          },
+          {
+            "date": "2010-12-01",
+            "revenue": 159174.41,
+            "trend": 429926.93
+          }
+        ],
+        "forecast": [
+          {
+            "date": "2011-02-01",
+            "revenue": 441809.2
+          },
+          {
+            "date": "2011-03-01",
+            "revenue": 453691.48
+          },
+          {
+            "date": "2011-04-01",
+            "revenue": 465573.76
+          },
+          {
+            "date": "2011-05-01",
+            "revenue": 477456.04
+          },
+          {
+            "date": "2011-06-01",
+            "revenue": 489338.32
+          },
+          {
+            "date": "2011-07-01",
+            "revenue": 501220.59
+          }
+        ],
+        "total_forecasted_revenue": 2829089.39
+      },
+      "exponential_smoothing": {
+        "method": "Exponential Smoothing",
+        "parameters": {
+          "alpha": 0.3
+        },
+        "historical": [
+          {
+            "date": "2009-12-01",
+            "revenue": 353831.78,
+            "smoothed": 353831.78
+          },
+          {
+            "date": "2010-01-01",
+            "revenue": 248421.13,
+            "smoothed": 322208.59
+          },
+          {
+            "date": "2010-02-01",
+            "revenue": 263228.43,
+            "smoothed": 304514.54
+          },
+          {
+            "date": "2010-03-01",
+            "revenue": 365576.16,
+            "smoothed": 322833.02
+          },
+          {
+            "date": "2010-04-01",
+            "revenue": 325442.7,
+            "smoothed": 323615.93
+          },
+          {
+            "date": "2010-05-01",
+            "revenue": 332453.07,
+            "smoothed": 326267.07
+          },
+          {
+            "date": "2010-06-01",
+            "revenue": 353663.74,
+            "smoothed": 334486.07
+          },
+          {
+            "date": "2010-07-01",
+            "revenue": 315357.15,
+            "smoothed": 328747.39
+          },
+          {
+            "date": "2010-08-01",
+            "revenue": 305591.71,
+            "smoothed": 321800.69
+          },
+          {
+            "date": "2010-09-01",
+            "revenue": 423297.25,
+            "smoothed": 352249.66
+          },
+          {
+            "date": "2010-10-01",
+            "revenue": 571801.3,
+            "smoothed": 418115.15
+          },
+          {
+            "date": "2010-11-01",
+            "revenue": 644393.52,
+            "smoothed": 485998.66
+          },
+          {
+            "date": "2010-12-01",
+            "revenue": 159174.41,
+            "smoothed": 387951.39
+          }
+        ],
+        "forecast": [
+          {
+            "date": "2011-02-01",
+            "revenue": 387951.39
+          },
+          {
+            "date": "2011-03-01",
+            "revenue": 387951.39
+          },
+          {
+            "date": "2011-04-01",
+            "revenue": 387951.39
+          },
+          {
+            "date": "2011-05-01",
+            "revenue": 387951.39
+          },
+          {
+            "date": "2011-06-01",
+            "revenue": 387951.39
+          },
+          {
+            "date": "2011-07-01",
+            "revenue": 387951.39
+          }
+        ],
+        "total_forecasted_revenue": 2327708.32
+      }
+    },
+    "seasonal_analysis": {
+      "seasonal_indices": [
+        {
+          "month_name": "Jan",
+          "seasonal_index": 0.677,
+          "avg_revenue": 248421.132
+        },
+        {
+          "month_name": "Feb",
+          "seasonal_index": 0.717,
+          "avg_revenue": 263228.426
+        },
+        {
+          "month_name": "Mar",
+          "seasonal_index": 0.996,
+          "avg_revenue": 365576.161
+        },
+        {
+          "month_name": "Apr",
+          "seasonal_index": 0.886,
+          "avg_revenue": 325442.702
+        },
+        {
+          "month_name": "May",
+          "seasonal_index": 0.906,
+          "avg_revenue": 332453.07
+        },
+        {
+          "month_name": "Jun",
+          "seasonal_index": 0.963,
+          "avg_revenue": 353663.74
+        },
+        {
+          "month_name": "Jul",
+          "seasonal_index": 0.859,
+          "avg_revenue": 315357.15
+        },
+        {
+          "month_name": "Aug",
+          "seasonal_index": 0.832,
+          "avg_revenue": 305591.71
+        },
+        {
+          "month_name": "Sep",
+          "seasonal_index": 1.153,
+          "avg_revenue": 423297.251
+        },
+        {
+          "month_name": "Oct",
+          "seasonal_index": 1.557,
+          "avg_revenue": 571801.3
+        },
+        {
+          "month_name": "Nov",
+          "seasonal_index": 1.755,
+          "avg_revenue": 644393.522
+        },
+        {
+          "month_name": "Dec",
+          "seasonal_index": 0.699,
+          "avg_revenue": 256503.09500000003
+        }
+      ],
+      "peak_month": "Nov",
+      "low_month": "Jan",
+      "seasonality_strength": 0.337
+    },
+    "comparison": {
+      "methods": [
+        {
+          "name": "Moving Average",
+          "total_forecasted": 2750738.46,
+          "parameters": {
+            "periods": 3
+          }
+        },
+        {
+          "name": "Linear Trend",
+          "total_forecasted": 2829089.39,
+          "parameters": {
+            "slope": 11882.28,
+            "intercept": 287339.59,
+            "r_squared": 0.1292
+          }
+        },
+        {
+          "name": "Exponential Smoothing",
+          "total_forecasted": 2327708.32,
+          "parameters": {
+            "alpha": 0.3
+          }
+        }
+      ],
+      "best_method": null,
+      "forecast_summary": {
+        "average_forecast": 2635845.39,
+        "min_forecast": 2327708.32,
+        "max_forecast": 2829089.39
+      }
+    }
+  }
+}
