@@ -28,3 +28,30 @@ Users can upload datasets, run analytics automatically, and visualize business p
 - Forecasted sales trends
 
 ## 🏗 Architecture
+Frontend Dashboard → Backend API → Analytics Pipeline → Dashboard Output
+
+
+## 🛠 Tech Stack
+- Python
+- Pandas, NumPy, Scikit-learn
+- FastAPI backend
+- React frontend
+- Tailwind CSS
+- REST APIs
+- Cloud deployment
+
+## 📂 Project Structure
+backend/ - API & analytics pipeline
+frontend/ - Dashboard interface
+tests/ - Pipeline tests
+outputs/ - Analytics outputs
+
+## 📌 Future Improvements
+- Churn prediction model
+- Marketing campaign analytics
+- Recommendation engine
+- Real-time streaming analytics
+
+## 👤 Author
+Arnab Mondal  
+Data Analyst
