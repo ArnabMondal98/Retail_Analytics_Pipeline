@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Analytics Report</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { 
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .header .timestamp { opacity: 0.8; font-size: 0.9rem; }
+        .section { 
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .section h2 { 
+            color: #0f172a;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .kpi-grid { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .kpi-card { 
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .kpi-card .value { 
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .kpi-card .label { 
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td { 
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th { 
+            background: #f8fafc;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        tr:hover { background: #f8fafc; }
+        .chart-placeholder { 
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+        }
+        .footer { 
+            text-align: center;
+            padding: 1rem;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        @media print {
+            body { padding: 0; }
+            .section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Retail Analytics Report</h1>
+            <div class="timestamp">Generated: February 08, 2026 at 19:08:54</div>
+        </div>
+<div class="section"><h2>Key Performance Indicators</h2><div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="value">$4,662,232.35</div>
+                    <div class="label">Total Revenue</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">$12.63</div>
+                    <div class="label">Avg Order Value</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">17,263</div>
+                    <div class="label">Total Transactions</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">4,146</div>
+                    <div class="label">Unique Customers</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">66.30%</div>
+                    <div class="label">Repeat Rate</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">37</div>
+                    <div class="label">Countries</div>
+                </div></div></div><div class="section"><h2>Executive Summary</h2><div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="value">$4,662,232.35</div>
+                <div class="label">Total Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">$12.63</div>
+                <div class="label">Average Order Value</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">17,263</div>
+                <div class="label">Total Transactions</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">4,146</div>
+                <div class="label">Unique Customers</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">66.3%</div>
+                <div class="label">Repeat Customer Rate</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">-75.3%</div>
+                <div class="label">Month over Month</div>
+            </div></div></div><div class="section"><h2>RFM Customer Analysis</h2><table><thead><tr><th>Segment</th><th>Customers</th><th>% Customers</th><th>Avg Recency</th><th>Avg Frequency</th><th>Total Revenue</th></tr></thead><tbody><tr>
+                    <td>Champions</td>
+                    <td>869</td>
+                    <td>20.96%</td>
+                    <td>5553 days</td>
+                    <td>10.7</td>
+                    <td>$2,646,745.75</td>
+                </tr><tr>
+                    <td>Loyal Customers</td>
+                    <td>697</td>
+                    <td>16.81%</td>
+                    <td>5616 days</td>
+                    <td>5.3</td>
+                    <td>$944,026.49</td>
+                </tr><tr>
+                    <td>Need Attention</td>
+                    <td>507</td>
+                    <td>12.23%</td>
+                    <td>5629 days</td>
+                    <td>2.2</td>
+                    <td>$353,174.82</td>
+                </tr><tr>
+                    <td>Potential Loyalists</td>
+                    <td>489</td>
+                    <td>11.79%</td>
+                    <td>5558 days</td>
+                    <td>2.0</td>
+                    <td>$277,518.64</td>
+                </tr><tr>
+                    <td>Lost</td>
+                    <td>449</td>
+                    <td>10.83%</td>
+                    <td>5773 days</td>
+                    <td>1.5</td>
+                    <td>$126,308.25</td>
+                </tr><tr>
+                    <td>Hibernating</td>
+                    <td>328</td>
+                    <td>7.91%</td>
+                    <td>5812 days</td>
+                    <td>1.0</td>
+                    <td>$83,059.52</td>
+                </tr><tr>
+                    <td>Promising</td>
+                    <td>348</td>
+                    <td>8.39%</td>
+                    <td>5588 days</td>
+                    <td>1.7</td>
+                    <td>$79,605.63</td>
+                </tr><tr>
+                    <td>About to Sleep</td>
+                    <td>256</td>
+                    <td>6.17%</td>
+                    <td>5660 days</td>
+                    <td>1.0</td>
+                    <td>$61,247.84</td>
+                </tr><tr>
+                    <td>At Risk</td>
+                    <td>67</td>
+                    <td>1.62%</td>
+                    <td>5770 days</td>
+                    <td>2.4</td>
+                    <td>$49,297.85</td>
+                </tr><tr>
+                    <td>Recent Customers</td>
+                    <td>136</td>
+                    <td>3.28%</td>
+                    <td>5558 days</td>
+                    <td>1.0</td>
+                    <td>$41,247.55</td>
+                </tr></tbody></table></div><div class="section"><h2>Customer Segmentation (K-Means)</h2><table><thead><tr><th>Cluster</th><th>Label</th><th>Customers</th><th>%</th><th>Avg Spend</th><th>Total Revenue</th></tr></thead><tbody><tr>
+                    <td>0</td>
+                    <td>VIP Customers</td>
+                    <td>1,624</td>
+                    <td>39.17%</td>
+                    <td>$2,202.70</td>
+                    <td>$3,577,187.90</td>
+                </tr><tr>
+                    <td>1</td>
+                    <td>Low-Value</td>
+                    <td>2,522</td>
+                    <td>60.83%</td>
+                    <td>$430.23</td>
+                    <td>$1,085,044.45</td>
+                </tr></tbody></table></div><div class="section"><h2>Monthly Performance</h2><table><thead><tr><th>Period</th><th>Revenue</th><th>Transactions</th><th>Customers</th><th>Growth</th></tr></thead><tbody><tr>
+                    <td>2010-01</td>
+                    <td>$248,421.13</td>
+                    <td>885</td>
+                    <td>671</td>
+                    <td style="color: #ef4444">-29.8%</td>
+                </tr><tr>
+                    <td>2010-02</td>
+                    <td>$263,228.43</td>
+                    <td>993</td>
+                    <td>735</td>
+                    <td style="color: #10b981">+6.0%</td>
+                </tr><tr>
+                    <td>2010-03</td>
+                    <td>$365,576.16</td>
+                    <td>1,361</td>
+                    <td>990</td>
+                    <td style="color: #10b981">+38.9%</td>
+                </tr><tr>
+                    <td>2010-04</td>
+                    <td>$325,442.70</td>
+                    <td>1,178</td>
+                    <td>893</td>
+                    <td style="color: #ef4444">-11.0%</td>
+                </tr><tr>
+                    <td>2010-05</td>
+                    <td>$332,453.07</td>
+                    <td>1,237</td>
+                    <td>915</td>
+                    <td style="color: #10b981">+2.1%</td>
+                </tr><tr>
+                    <td>2010-06</td>
+                    <td>$353,663.74</td>
+                    <td>1,352</td>
+                    <td>982</td>
+                    <td style="color: #10b981">+6.4%</td>
+                </tr><tr>
+                    <td>2010-07</td>
+                    <td>$315,357.15</td>
+                    <td>1,242</td>
+                    <td>872</td>
+                    <td style="color: #ef4444">-10.8%</td>
+                </tr><tr>
+                    <td>2010-08</td>
+                    <td>$305,591.71</td>
+                    <td>1,159</td>
+                    <td>852</td>
+                    <td style="color: #ef4444">-3.1%</td>
+                </tr><tr>
+                    <td>2010-09</td>
+                    <td>$423,297.25</td>
+                    <td>1,501</td>
+                    <td>1,068</td>
+                    <td style="color: #10b981">+38.5%</td>
+                </tr><tr>
+                    <td>2010-10</td>
+                    <td>$571,801.30</td>
+                    <td>1,940</td>
+                    <td>1,421</td>
+                    <td style="color: #10b981">+35.1%</td>
+                </tr><tr>
+                    <td>2010-11</td>
+                    <td>$644,393.52</td>
+                    <td>2,353</td>
+                    <td>1,533</td>
+                    <td style="color: #10b981">+12.7%</td>
+                </tr><tr>
+                    <td>2010-12</td>
+                    <td>$159,174.41</td>
+                    <td>698</td>
+                    <td>528</td>
+                    <td style="color: #ef4444">-75.3%</td>
+                </tr></tbody></table></div><div class="section"><h2>Sales Forecast</h2><div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="value">$2,635,845.39</div>
+                <div class="label">Avg Forecast</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">$2,327,708.32</div>
+                <div class="label">Min Forecast</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value">$2,829,089.39</div>
+                <div class="label">Max Forecast</div>
+            </div></div></div>
+        <div class="footer">
+            <p>RetailPulse Analytics - Automated Report Generation</p>
+        </div>
+    </div>
+</body>
+</html>
