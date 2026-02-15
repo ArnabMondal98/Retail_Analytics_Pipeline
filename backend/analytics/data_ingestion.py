@@ -35,6 +35,26 @@ class DataIngestion:
             self.df = pd.read_csv(self.data_path)
         else:
             raise ValueError(f"Unsupported file format: {self.data_path.suffix}")
+        column_map = {
+        "InvoiceNo": "transaction_id",
+        "StockCode": "transaction_item_code",
+        "Description": "transaction_item_description",
+        "InvoiceDate": "transaction_date",
+        "CustomerID": "customer_id",
+        "Country": "country",
+        "UnitPrice": "price",
+        "Quantity": "quantity",
+        "TotalPrice": "transaction_amount",
+    }
+        
+        self.df.rename(columns=column_map, inplace=True)
+        
+        # Create transaction_amount if missing
+        if "transaction_amount" not in self.df.columns:
+            if "quantity" in self.df.columns and "price" in self.df.columns:
+                self.df["transaction_amount"] = (
+                    self.df["quantity"] * self.df["price"]
+                )
         
         logger.info(f"Loaded {len(self.df)} records with {len(self.df.columns)} columns")
         return self.df
