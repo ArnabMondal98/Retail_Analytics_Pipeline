@@ -146,8 +146,12 @@ const Pipeline = () => {
 
   const fetchStatus = useCallback(async () => {
   try {
-    const res = await axios.get(`${API}/pipeline/status`);
-    setStatus(res.data);
+  const res = await axios.get(`${API}/pipeline/status`);
+  setResults(res.data || []);
+  } catch (err) {
+  console.error(err);
+  setResults([]);
+  }
 
     if (res.data.status === "running") {
       setIsRunning(true);
