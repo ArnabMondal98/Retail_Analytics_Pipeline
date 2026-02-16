@@ -161,8 +161,8 @@ const Pipeline = () => {
         clearInterval(pollingInterval);
         setPollingInterval(null);
       }
-    }
-  } catch (err) {
+    } 
+  catch (err) {
     console.error("Error fetching status:", err);
   }
 }, [pollingInterval, otherDeps]);
