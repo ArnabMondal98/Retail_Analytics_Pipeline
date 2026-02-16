@@ -161,7 +161,7 @@ const Pipeline = () => {
   } catch (err) {
     console.error("Error fetching status:", err);
   }
-}, [API, pollingInterval]);
+}, [pollingInterval, otherDeps]);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
