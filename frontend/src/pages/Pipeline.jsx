@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -144,24 +144,24 @@ const Pipeline = () => {
     }
   };
 
-  const fetchStatus = async () => {
-    try {
-      const res = await axios.get(`${API}/pipeline/status`);
-      setStatus(res.data);
-      
-      if (res.data.status === 'running') {
-        setIsRunning(true);
-      } else {
-        setIsRunning(false);
-        if (pollingInterval) {
-          clearInterval(pollingInterval);
-          setPollingInterval(null);
-        }
+  const fetchStatus = useCallback(async () => {
+  try {
+    const res = await axios.get(`${API}/pipeline/status`);
+    setStatus(res.data);
+
+    if (res.data.status === "running") {
+      setIsRunning(true);
+    } else {
+      setIsRunning(false);
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+        setPollingInterval(null);
       }
-    } catch (err) {
-      console.error("Error fetching status:", err);
     }
-  };
+  } catch (err) {
+    console.error("Error fetching status:", err);
+  }
+}, [API, pollingInterval]);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
