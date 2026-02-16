@@ -303,7 +303,7 @@ const Pipeline = () => {
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">Available Datasets:</p>
                 <div className="space-y-2">
-                  {datasets.map((dataset, index) => (
+                  {datasets.results && results.map((dataset, index) => (
                     <div 
                       key={index}
                       className={`flex items-center justify-between p-3 rounded-lg border ${
@@ -466,7 +466,7 @@ const Pipeline = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {STAGES.map((stage, index) => (
+            {STAGES.results && results.map((stage, index) => (
               <StageItem
                 key={stage.id}
                 stage={stage}
