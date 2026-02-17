@@ -145,23 +145,25 @@ const Pipeline = () => {
   };
 
   const fetchStatus = useCallback(async () => {
-    try {
+  try {
       const res = await axios.get(`${API}/pipeline/status`);
-      setResults(res.data || []);
-      if (res.data.status === "running") {
-      setIsRunning(true);
+      const data = res.data;
+
+        setIsRunning(data.status === "running");
+
+      // Ensure results is array
+      if (Array.isArray(data.results)) {
+        setResults(data.results);
       } else {
-      setIsRunning(false);
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-        setPollingInterval(null);
-        }
+      setResults([]);
       }
     } catch (err) {
-    console.error("Error fetching status:", err);
+    console.error("Status fetch failed:", err);
     setResults([]);
-  }
-}, [API, pollingInterval]);
+    setIsRunning(false);
+    }
+  }, [API]);
+
 
     if (res.data.status === "running") {
       setIsRunning(true);
