@@ -137,7 +137,6 @@ const Pipeline = () => {
   const fetchDatasets = async () => {
     try {
       const res = await axios.get(`${API}/data/datasets`);
-      console.log('Datasets:', res.data);
       setDatasets(res.data);
     } catch (err) {
       console.error("Error fetching datasets:", err);
