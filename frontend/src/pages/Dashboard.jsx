@@ -90,12 +90,13 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const [kpiRes, perfRes] = await Promise.all([
-          axios.get(`${API}/pipeline/results`),
+          const res = await axios.get(`${API}/pipeline/results`);
           setKpis(res.data.kpis);
           setPerformance(res.data.performance);
-        ]);
+          } catch (err) {
+      console.error("Error fetching dashboard data:", err);
+        setError("Failed to load dashboard data");
+        }
 
         setKpis(kpiRes.data);
         setPerformance(perfRes.data);
