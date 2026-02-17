@@ -148,8 +148,11 @@ const Pipeline = () => {
   try {
       const res = await axios.get(`${API}/pipeline/status`);
       const data = res.data;
-
-        setIsRunning(data.status === "running");
+      const results = Array.isArray(data.results)
+        ? data.results
+        : [];
+      setResults(results);
+      setIsRunning(data.status === "running");
 
       // Ensure results is array
       if (Array.isArray(data.results)) {
