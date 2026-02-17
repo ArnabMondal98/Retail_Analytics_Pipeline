@@ -88,30 +88,35 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-          const res = await axios.get(`${API}/pipeline/results`);
-          setKpis(res.data.kpis);
-          setPerformance(res.data.performance);
-          } catch (err) {
-      console.error("Error fetching dashboard data:", err);
-        setError("Failed to load dashboard data");
-        }
-        
-        // Process category data
-        if (res.data.performance?.by_category) {
-          const categories = res.data.performance.by_category
-            .slice(0, 6)
-            .map(cat => ({
-              name: cat.category
-                ? cat.category.substring(0, 15)
-                : "Unknown",
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(`${API}/pipeline/results`);
+
+      setKpis(res.data.kpis);
+      setPerformance(res.data.performance);
+
+      if (res.data.performance?.by_category) {
+        const categories =
+          res.data.performance.by_category.slice(0, 6).map(cat => ({
+            name: cat.category
+              ? cat.category.substring(0, 15)
+              : "Unknown",
             revenue: cat.revenue,
             transactions: cat.transactions
           }));
 
           setCategoryData(categories);
         }
+      } catch (err) {
+        console.error("Error fetching dashboard data:", err);
+        setError("Failed to load dashboard data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+  fetchData();
+  }, [API]);
         
         // Process country data
         if (perfRes.data.by_country) {
