@@ -91,9 +91,10 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
         const [kpiRes, perfRes] = await Promise.all([
           axios.get(`${API}/pipeline/results`),
+          setKpis(res.data.kpis);
+          setPerformance(res.data.performance);
         ]);
 
         setKpis(kpiRes.data);
