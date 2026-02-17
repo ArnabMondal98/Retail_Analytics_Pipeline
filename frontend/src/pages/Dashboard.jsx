@@ -97,17 +97,16 @@ const Dashboard = () => {
       console.error("Error fetching dashboard data:", err);
         setError("Failed to load dashboard data");
         }
-
-        setKpis(kpiRes.data);
-        setPerformance(perfRes.data);
         
         // Process category data
-        if (perfRes.data.by_category) {
-          setCategoryData(perfRes.data.by_category.slice(0, 6).map(cat => ({
-            name: cat.category?.substring(0, 15) || 'Unknown',
-            revenue: cat.revenue,
-            transactions: cat.transactions
-          })));
+        if (res.data.performance?.by_category) {
+          setCategoryData(
+            res.data.performance.by_category.slice(0, 6).map(cat => ({
+              name: cat.category?.substring(0, 15) || "Unknown",
+              revenue: cat.revenue,
+              transactions: cat.transactions
+            }))
+          );
         }
         
         // Process country data
