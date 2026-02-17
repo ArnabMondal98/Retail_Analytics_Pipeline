@@ -100,13 +100,17 @@ const Dashboard = () => {
         
         // Process category data
         if (res.data.performance?.by_category) {
-          setCategoryData(
-            res.data.performance.by_category.slice(0, 6).map(cat => ({
-              name: cat.category?.substring(0, 15) || "Unknown",
-              revenue: cat.revenue,
-              transactions: cat.transactions
-            }))
-          );
+          const categories = res.data.performance.by_category
+            .slice(0, 6)
+            .map(cat => ({
+              name: cat.category
+                ? cat.category.substring(0, 15)
+                : "Unknown",
+            revenue: cat.revenue,
+            transactions: cat.transactions
+          }));
+
+          setCategoryData(categories);
         }
         
         // Process country data
