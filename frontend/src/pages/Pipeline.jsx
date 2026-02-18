@@ -149,7 +149,7 @@ const Pipeline = () => {
       const res = await axios.get(`${API}/api/pipeline/status`);
       setStatus(res.data);
       
-      if (res.data.status === 'running') {
+      if (res?.data?.status === 'running') {
         setIsRunning(true);
       } else {
         setIsRunning(false);
