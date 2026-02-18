@@ -122,7 +122,7 @@ const Pipeline = () => {
     return () => {
       if (pollingInterval) clearInterval(pollingInterval);
     };
-  }, [fetchDataInfo, fetchStatus, fetchDatasets, pollingInterval]);
+  }, []);
 
   const fetchDataInfo = useCallback(async () => {
     try {
