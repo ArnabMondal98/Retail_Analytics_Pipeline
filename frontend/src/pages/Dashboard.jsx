@@ -93,8 +93,8 @@ const Dashboard = () => {
         setLoading(true);
         
         const [kpiRes, perfRes] = await Promise.all([
-          axios.get(`${API}/kpis`),
-          axios.get(`${API}/performance`)
+          axios.get(`${API}/api/kpis`),
+          axios.get(`${API}/api/performance`)
         ]);
 
         setKpis(kpiRes.data);
