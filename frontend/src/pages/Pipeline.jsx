@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -126,7 +126,7 @@ const Pipeline = () => {
 
   const fetchDataInfo = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/api/data/info`);
+      const res = await axios.get(`${API}/data/info`);
       console.log('Data info:', res.data);
       setDataInfo(res.data);
     } catch (err) {
@@ -136,7 +136,7 @@ const Pipeline = () => {
 
   const fetchDatasets = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/api/data/datasets`);
+      const res = await axios.get(`${API}/data/datasets`);
       console.log('Datasets:', res.data);
       setDatasets(res.data);
     } catch (err) {
@@ -146,7 +146,7 @@ const Pipeline = () => {
 
   const fetchStatus = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/api/pipeline/status`);
+      const res = await axios.get(`${API}/pipeline/status`);
       setStatus(res.data);
       
       if (res?.data?.status === 'running') {
@@ -161,7 +161,7 @@ const Pipeline = () => {
     } catch (err) {
       console.error("Error fetching status:", err);
     }
-  }, []);
+  }, [pollingInterval]);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
@@ -205,7 +205,7 @@ const Pipeline = () => {
   const startPipeline = async () => {
     try {
       setIsRunning(true);
-      await axios.post(`${API}/api/pipeline/run`);
+      await axios.post(`${API}/pipeline/run`);
       toast.success("Pipeline started successfully!");
       
       // Start polling for status updates
@@ -220,13 +220,13 @@ const Pipeline = () => {
   };
 
   const getStageStatus = (stageId) => {
-    if (status.stages_completed.includes(stageId)) return 'completed';
+    if (status?.stages_completed?.includes(stageId)) return 'completed';
     if (status.error && status.current_stage === stageId) return 'failed';
     return 'pending';
   };
 
   const isStageActive = (stageId) => {
-    return status.current_stage === stageId && status.status === 'running';
+    return status?.current_stage === stageId && status?.status === 'running';
   };
 
   const formatDuration = (start, end) => {
