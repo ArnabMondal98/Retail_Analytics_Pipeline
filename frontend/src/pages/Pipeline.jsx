@@ -122,9 +122,9 @@ const Pipeline = () => {
     return () => {
       if (pollingInterval) clearInterval(pollingInterval);
     };
-  }, []);
+  }, [fetchDataInfo, fetchStatus, fetchDatasets, pollingInterval]);
 
-  const fetchDataInfo = async () => {
+  const fetchDataInfo = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/data/info`);
       console.log('Data info:', res.data);
@@ -132,9 +132,9 @@ const Pipeline = () => {
     } catch (err) {
       console.error("Error fetching data info:", err);
     }
-  };
+  }, []);
 
-  const fetchDatasets = async () => {
+  const fetchDatasets = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/data/datasets`);
       console.log('Datasets:', res.data);
@@ -142,9 +142,9 @@ const Pipeline = () => {
     } catch (err) {
       console.error("Error fetching datasets:", err);
     }
-  };
+  }, []);
 
-  const fetchStatus = async () => {
+  const fetchStatus = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/pipeline/status`);
       setStatus(res.data);
@@ -161,7 +161,7 @@ const Pipeline = () => {
     } catch (err) {
       console.error("Error fetching status:", err);
     }
-  };
+  }, []);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
