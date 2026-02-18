@@ -350,8 +350,8 @@ const Pipeline = () => {
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Loader2 className="w-4 h-4 animate-spin" />
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-6 h-6 animate-spin text-[#2563EB]" />
               Loading dataset info...
             </div>
           ) : dataInfo && dataInfo.exists ? (
@@ -417,7 +417,7 @@ const Pipeline = () => {
                   status.status === 'failed' ? 'destructive' :
                   status.status === 'running' ? 'secondary' : 'outline'
                 }>
-                  {status.status.toUpperCase()}
+                  {status?.status?.toUpperCase() || "IDLE"}
                 </Badge>
                 {status.current_stage && (
                   <span className="text-muted-foreground">
@@ -425,7 +425,7 @@ const Pipeline = () => {
                   </span>
                 )}
               </div>
-              <span className="font-medium">{Math.round(status.progress)}%</span>
+              <span className="font-medium">{Math.round(status?.progress || 0)}%</span>
             </div>
             <Progress value={status.progress} className="h-2" />
           </div>
