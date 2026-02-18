@@ -303,7 +303,7 @@ const Pipeline = () => {
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">Available Datasets:</p>
                 <div className="space-y-2">
-                  {datasets.map((dataset, index) => (
+                  {datasets?.map((dataset, index) => (
                     <div 
                       key={index}
                       className={`flex items-center justify-between p-3 rounded-lg border ${
