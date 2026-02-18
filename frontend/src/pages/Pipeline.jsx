@@ -126,7 +126,7 @@ const Pipeline = () => {
 
   const fetchDataInfo = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/data/info`);
+      const res = await axios.get(`${API}/api/data/info`);
       console.log('Data info:', res.data);
       setDataInfo(res.data);
     } catch (err) {
@@ -136,7 +136,7 @@ const Pipeline = () => {
 
   const fetchDatasets = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/data/datasets`);
+      const res = await axios.get(`${API}/api/data/datasets`);
       console.log('Datasets:', res.data);
       setDatasets(res.data);
     } catch (err) {
@@ -146,7 +146,7 @@ const Pipeline = () => {
 
   const fetchStatus = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/pipeline/status`);
+      const res = await axios.get(`${API}/api/pipeline/status`);
       setStatus(res.data);
       
       if (res.data.status === 'running') {
@@ -205,7 +205,7 @@ const Pipeline = () => {
   const startPipeline = async () => {
     try {
       setIsRunning(true);
-      await axios.post(`${API}/pipeline/run`);
+      await axios.post(`${API}/api/pipeline/run`);
       toast.success("Pipeline started successfully!");
       
       // Start polling for status updates
