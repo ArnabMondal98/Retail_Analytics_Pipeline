@@ -14,6 +14,7 @@ import logging
 import json
 import asyncio
 import shutil
+import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 
 from dotenv import load_dotenv
@@ -65,7 +66,7 @@ app.add_middleware(
 DATA_DIR = ROOT_DIR / 'data'
 OUTPUT_DIR = ROOT_DIR / 'outputs'
 UPLOAD_DIR = ROOT_DIR / 'uploads'
-DATA_FILE = DATA_DIR / 'online_retail_monthly.xlsx'
+DATA_FILE = DATA_DIR / 'Retail_SampleData.xlsx'
 
 # Required columns for retail analytics
 REQUIRED_COLUMNS = [
