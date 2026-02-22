@@ -259,16 +259,32 @@ Data engineering + analytics engineering skills
 
 ### 📊 Dashboard
 ![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard2.png)
 
 ### ⚙️ Pipeline Execution
 ![Pipeline](screenshots/pipeline.png)
+![Pipeline](screenshots/pipeline2.png)
+![Pipeline](screenshots/pipeline3.png)
 
 ### 👥 Customer Segmentation
-![Segmentation](screenshots/segmentation.png)
+![Segmentation](screenshots/customer.png)
+![Segmentation](screenshots/customer2.png)
+
+### 👥 Performance
+![Performance](screenshots/performance.png)
+![Performance](screenshots/performance2.png)
+![Performance](screenshots/performance3.png)
+![Performance](screenshots/performance4.png)
 
 ### 🔮 Sales Forecasting
 ![Forecasting](screenshots/forecasting.png)
+![Forecasting](screenshots/forecasting2.png)
+![Forecasting](screenshots/forecasting3.png)
 
+### 🔮 Exports
+![Exports](screenshots/exports.png)
+![Exports](screenshots/exports2.png)
+![Exports](screenshots/exports3.png)
 
 👨‍💻 Author
 
