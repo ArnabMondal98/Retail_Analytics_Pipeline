@@ -1,49 +1,163 @@
-🛍️ RetailPulse – End-to-End Retail Analytics Pipeline
+🛍️ RetailPulse
+End-to-End Retail Analytics Platform | FastAPI + React + ML + Cloud Deployment
+<p align="center"> <img src="screenshots/dashboard.png" width="900"/> </p>
 
-A full-stack Retail Analytics Platform built using FastAPI (Python), React, and deployed on Render + Vercel.
+A production-style full-stack Retail Analytics Platform that processes transactional data and generates advanced business intelligence insights including RFM segmentation, customer clustering, KPI dashboards, CLV modeling, and sales forecasting.
 
-This project simulates a real-world retail analytics system that processes transaction data and generates advanced business insights including RFM segmentation, CLV analysis, forecasting, KPI dashboards, and automated exports.
+Deployed live using FastAPI (Render) + React (Vercel).
 
 🚀 Live Demo
 
-🔗 Frontend (Vercel):
-https://retail-analytics-pipeline.vercel.app
+🔗 Frontend: https://retail-analytics-pipeline.vercel.app
 
-🔗 Backend API (Render):
-https://retail-analytics-pipeline.onrender.com
+🔗 Backend API: https://retail-analytics-pipeline.onrender.com
+
+💻 GitHub Repository: https://github.com/ArnabMondal98/Retail_Analytics_Pipeline
 
 📌 Project Overview
 
-RetailPulse is designed to:
+RetailPulse simulates a real-world retail analytics system used by data teams to:
 
-Upload retail transaction datasets (CSV / Excel)
+Ingest retail transaction datasets (CSV / Excel)
 
-Validate required schema
+Validate schema & data quality
 
-Run a 12-step analytics pipeline
+Execute a 12-stage analytics pipeline
 
-Generate business KPIs
+Generate KPIs & dashboards
 
 Perform customer segmentation
 
-Forecast sales
+Calculate Customer Lifetime Value (CLV)
 
-Export cleaned and processed datasets
+Forecast sales trends
+
+Export analytical outputs
 
 Generate HTML reports
 
-This mimics a real-world data analytics workflow used in retail businesses.
+This project demonstrates both Data Analytics + Backend Engineering + Cloud Deployment capabilities.
 
-🏗️ Architecture
-React (Frontend - Vercel)
+🏗️ System Architecture
+React Frontend (Vercel)
         ↓
-FastAPI (Backend - Render)
+FastAPI REST API (Render)
         ↓
 Analytics Engine (Pandas, ML, Forecasting)
-🛠️ Tech Stack
-🔹 Frontend
+        ↓
+Cached Results + Export Layer
+⚙️ Core Features
+📁 Dataset Management
 
-React.js
+Upload CSV / Excel datasets
+
+Automatic schema validation
+
+Required column verification
+
+Dataset activation system
+
+Real-time dataset metadata preview
+
+🔄 12-Stage Automated Analytics Pipeline
+
+Data Ingestion
+
+Data Cleaning
+
+Feature Engineering
+
+Exploratory Data Analysis
+
+RFM Analysis
+
+RFM Scoring
+
+K-Means Segmentation
+
+Customer Lifetime Value
+
+KPI Generation
+
+Performance Analysis
+
+Sales Forecasting
+
+Report Compilation
+
+Real-time progress tracking via API.
+
+📊 KPI Dashboard
+<p align="center"> <img src="screenshots/dashboard.png" width="900"/> </p>
+
+Revenue metrics
+
+Top customers & products
+
+Monthly performance
+
+Country/category insights
+
+👥 Customer Segmentation
+<p align="center"> <img src="screenshots/segmentation.png" width="900"/> </p>
+
+RFM-based scoring
+
+K-Means clustering
+
+Segment distribution visualization
+
+High-value & at-risk customer detection
+
+💰 Customer Lifetime Value (CLV)
+
+CLV estimation
+
+Revenue contribution ranking
+
+Retention-focused analytics
+
+🔮 Sales Forecasting
+<p align="center"> <img src="screenshots/forecasting.png" width="900"/> </p>
+
+Time series forecasting
+
+Seasonal trend analysis
+
+Multi-method comparison
+
+📤 Export & Reporting
+
+Export cleaned data
+
+Export RFM & segmentation results
+
+Generate downloadable CSV / Excel files
+
+Auto-generated HTML reports
+
+🛠️ Tech Stack
+Backend
+
+FastAPI
+
+Pandas
+
+NumPy
+
+Scikit-learn
+
+Statsmodels
+
+Uvicorn
+
+Docker
+
+Render Deployment
+
+Frontend
+
+React
 
 Axios
 
@@ -53,108 +167,33 @@ ShadCN UI
 
 Vercel Deployment
 
-🔹 Backend
+Analytics
 
-FastAPI
+RFM Modeling
 
-Pandas
-
-NumPy
-
-Scikit-learn (Clustering)
-
-Statsmodels (Forecasting)
-
-Uvicorn
-
-Docker
-
-Render Deployment
-
-🔹 Analytics Modules
-
-Data Ingestion
-
-Data Cleaning
+K-Means Clustering
 
 Feature Engineering
 
-Exploratory Data Analysis (EDA)
+KPI Computation
 
-RFM Analysis
+Time-Series Forecasting
 
-K-Means Customer Segmentation
+⚡ Performance & Optimization
 
-Customer Lifetime Value (CLV)
+To ensure smooth deployment:
 
-KPI Generation
+Implemented dataset caching mechanism
 
-Performance Analysis
+Centralized cleaned DataFrame reuse
 
-Sales Forecasting
+Reduced memory footprint via dtype optimization
 
-Report Generator
+Limited forecast window for production deployment
 
-📊 Key Features
-📁 Dataset Management
+Optimized for 100K+ row datasets
 
-Upload CSV or Excel files
-
-Schema validation
-
-Activate multiple datasets
-
-File size + row count preview
-
-⚙️ 12-Step Automated Pipeline
-
-End-to-end analytics execution
-
-Real-time status tracking
-
-Stage-wise progress updates
-
-📈 Business Intelligence
-
-Revenue KPIs
-
-Top customers & products
-
-Monthly performance
-
-Country/category analysis
-
-👥 Customer Segmentation
-
-RFM scoring
-
-K-Means clustering
-
-Segment distribution
-
-💰 Customer Lifetime Value (CLV)
-
-CLV calculation
-
-At-risk customer detection
-
-High-value customer analysis
-
-🔮 Forecasting
-
-Time series forecasting
-
-Seasonal trend analysis
-
-Model comparison
-
-📤 Export System
-
-Export cleaned data
-
-Export RFM / Segments / CLV
-
-Generate downloadable reports
+Handled CORS configuration for cross-domain integration
 
 📂 Project Structure
 Retail_Analytics_Pipeline/
@@ -172,127 +211,73 @@ Retail_Analytics_Pipeline/
 │   ├── components/
 │   └── pages/
 │
+├── screenshots/
+│
 └── README.md
-🔄 How the Pipeline Works
+📈 Business Use Case
 
-Upload dataset
+This system helps retail businesses:
 
-Validate schema
+Identify high-value customers
 
-Clean & preprocess data
+Detect churn risk early
 
-Generate KPIs
+Understand purchasing behavior
 
-Perform EDA
+Improve customer targeting
 
-Compute RFM scores
+Forecast demand patterns
 
-Run K-Means clustering
+Drive revenue optimization strategies
 
-Calculate CLV
+🧠 Engineering Highlights
 
-Analyze performance metrics
+✔ RESTful API architecture
+✔ Modular analytics engine
+✔ Scalable pipeline design
+✔ Cloud deployment setup
+✔ Frontend-backend integration
+✔ Memory optimization for large datasets
+✔ Production-ready structure
 
-Forecast sales
-
-Cache results
-
-Generate export/report
-
-🧪 Example Dataset Requirements
-
-Required columns:
-
-transaction_id
-
-quantity
-
-transaction_date
-
-price
-
-customer_id
-
-transaction_amount
-
-⚡ Deployment Details
-Frontend
-
-Hosted on Vercel
-
-Uses environment variable:
-
-REACT_APP_API_URL=https://retail-analytics-pipeline.onrender.com/api
+🚀 How To Run Locally
 Backend
+cd backend
+pip install -r requirements.txt
+uvicorn server:app --reload
+Frontend
+cd frontend
+npm install
+npm start
+⚠️ Notes
 
-Hosted on Render (Docker-based deployment)
+Large datasets (>300K rows) may require higher memory cloud tier.
 
-CORS configured for Vercel frontend
-
-Supports large dataset processing (optimized for demo scale)
-
-⚠️ Known Limitations
-
-Large datasets (>500k rows) may require higher memory tier on Render
-
-Forecasting stage is computationally intensive
-
-Free tier services may experience cold start delay
-
-🎯 Use Case
-
-This project demonstrates:
-
-Real-world data pipeline architecture
-
-Backend API design using FastAPI
-
-Frontend-backend integration
-
-Cloud deployment
-
-Scalable analytics workflow
-
-Data engineering + analytics engineering skills
-
-📸 Screenshots
-
-### 📊 Dashboard
-![Dashboard](screenshots/dashboard.png)
-![Dashboard](screenshots/dashboard2.png)
-
-### ⚙️ Pipeline Execution
-![Pipeline](screenshots/pipeline.png)
-![Pipeline](screenshots/pipeline2.png)
-![Pipeline](screenshots/pipeline3.png)
-
-### 👥 Customer Segmentation
-![Segmentation](screenshots/customer.png)
-![Segmentation](screenshots/customer2.png)
-
-### 👥 Performance
-![Performance](screenshots/performance.png)
-![Performance](screenshots/performance2.png)
-![Performance](screenshots/performance3.png)
-![Performance](screenshots/performance4.png)
-
-### 🔮 Sales Forecasting
-![Forecasting](screenshots/forecasting.png)
-![Forecasting](screenshots/forecasting2.png)
-![Forecasting](screenshots/forecasting3.png)
-
-### 🔮 Exports
-![Exports](screenshots/exports.png)
-![Exports](screenshots/exports2.png)
-![Exports](screenshots/exports3.png)
+Optimized demo dataset included for smooth live experience.
 
 👨‍💻 Author
 
 Arnab Mondal
-Data Analyst | SQL | Python | Power BI | Data Engineering |
+Data Analyst | SQL | Python | Power BI | Analytics Engineering
 
 📧 arnabmondal0407@gmail.com
 
 🔗 LinkedIn: https://www.linkedin.com/in/arnabmondal98/
 
 💻 GitHub: https://github.com/ArnabMondal98
+
+🌟 Why This Project Stands Out
+
+This is not just a dashboard project.
+
+It demonstrates:
+
+Real-world analytics pipeline design
+
+ML-based segmentation
+
+Business KPI engineering
+
+Cloud deployment capability
+
+End-to-end system ownership
