@@ -257,12 +257,13 @@ Data engineering + analytics engineering skills
 
 📸 Screenshots
 
+Dashboard 
 (Add screenshots of Dashboard, Pipeline, Segmentation, Forecasting here)
 
 👨‍💻 Author
 
 Arnab Mondal
-Data Analyst | SQL | Python | Power BI | Machine Learning
+Data Analyst | SQL | Python | Power BI | Data Engineering |
 
 📧 arnabmondal0407@gmail.com
 
