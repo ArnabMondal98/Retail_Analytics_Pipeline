@@ -16,11 +16,7 @@ import asyncio
 import shutil
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
-
 from dotenv import load_dotenv
-
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
 
 # Import analytics modules
 from analytics.pipeline_orchestrator import PipelineOrchestrator
@@ -35,6 +31,9 @@ from analytics.kpi_generator import KPIGenerator
 from analytics.performance_analysis import PerformanceAnalysis
 from analytics.forecasting import SalesForecasting
 from analytics.report_generator import ReportGenerator
+
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
 
 # Configure logging
 logging.basicConfig(
@@ -53,11 +52,14 @@ app = FastAPI(
 # API Router with /api prefix
 api_router = APIRouter(prefix="/api")
 
-# CORS middleware
+# CORS middleware (FIXED)
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=[
+        "https://retail-analytics-pipeline.vercel.app",
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
     allow_methods=["*"],
     allow_headers=["*"],
 )
