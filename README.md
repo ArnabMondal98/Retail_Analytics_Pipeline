@@ -89,6 +89,7 @@ Real-time progress tracking via API.
 
 📊 KPI Dashboard
 <p align="center"> <img src="screenshots/dashboard.png" width="900"/> </p>
+<p align="center"> <img src="screenshots/dashboard2.png" width="900"/> </p>
 
 Revenue metrics
 
@@ -99,7 +100,8 @@ Monthly performance
 Country/category insights
 
 👥 Customer Segmentation
-<p align="center"> <img src="screenshots/segmentation.png" width="900"/> </p>
+<p align="center"> <img src="screenshots/customer.png" width="900"/> </p>
+<p align="center"> <img src="screenshots/customer2.png" width="900"/> </p>
 
 RFM-based scoring
 
@@ -119,6 +121,7 @@ Retention-focused analytics
 
 🔮 Sales Forecasting
 <p align="center"> <img src="screenshots/forecasting.png" width="900"/> </p>
+<p align="center"> <img src="screenshots/forecasting2.png" width="900"/> </p>
 
 Time series forecasting
 
