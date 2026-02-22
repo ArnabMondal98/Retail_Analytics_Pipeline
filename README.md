@@ -293,6 +293,6 @@ Data Analyst | SQL | Python | Power BI | Data Engineering |
 
 📧 arnabmondal0407@gmail.com
 
-🔗 LinkedIn: https://www.linkedin.com/in/arnab-mondal-108966244
+🔗 LinkedIn: https://www.linkedin.com/in/arnabmondal98/
 
 💻 GitHub: https://github.com/ArnabMondal98
