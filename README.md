@@ -258,6 +258,7 @@ Data engineering + analytics engineering skills
 📸 Screenshots
 
 Dashboard 
+[screenshots/dashboard.png]
 (Add screenshots of Dashboard, Pipeline, Segmentation, Forecasting here)
 
 👨‍💻 Author
