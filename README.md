@@ -257,9 +257,18 @@ Data engineering + analytics engineering skills
 
 📸 Screenshots
 
-Dashboard 
-[screenshots/dashboard.png]
-(Add screenshots of Dashboard, Pipeline, Segmentation, Forecasting here)
+### 📊 Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### ⚙️ Pipeline Execution
+![Pipeline](screenshots/pipeline.png)
+
+### 👥 Customer Segmentation
+![Segmentation](screenshots/segmentation.png)
+
+### 🔮 Sales Forecasting
+![Forecasting](screenshots/forecasting.png)
+
 
 👨‍💻 Author
 
