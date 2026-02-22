@@ -68,7 +68,7 @@ app.add_middleware(
 DATA_DIR = ROOT_DIR / 'data'
 OUTPUT_DIR = ROOT_DIR / 'outputs'
 UPLOAD_DIR = ROOT_DIR / 'uploads'
-DATA_FILE = DATA_DIR / 'Retail_SampleData.xlsx'
+DATA_FILE = DATA_DIR / 'Retail_DemoData.csv'
 
 # Required columns for retail analytics
 REQUIRED_COLUMNS = [
