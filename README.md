@@ -8,6 +8,7 @@ This project simulates a real-world retail analytics system that processes trans
 
 🔗 Frontend (Vercel):
 https://retail-analytics-pipeline.vercel.app
+
 🔗 Backend API (Render):
 https://retail-analytics-pipeline.onrender.com
 
@@ -261,7 +262,10 @@ Data engineering + analytics engineering skills
 👨‍💻 Author
 
 Arnab Mondal
-Data Analyst | SQL | Python | Power BI | Data Engineering |
+Data Analyst | SQL | Python | Power BI | Machine Learning
+
 📧 arnabmondal0407@gmail.com
+
 🔗 LinkedIn: https://www.linkedin.com/in/arnab-mondal-108966244
+
 💻 GitHub: https://github.com/ArnabMondal98
